@@ -101,6 +101,10 @@
                 $bdate = $_POST['bdate'];
                 $bplace = $_POST['bplace'];
                 $nationality = $_POST['nationality'];
+                $voter = $_POST['voter'];
+                $familyrole = $_POST['family_role'];
+                $role = $_POST['role'];
+                $addedby = $_POST['addedby'];
 
                 $connection = $this->openConn();
 
@@ -110,21 +114,21 @@ if (!empty($password)) {
     $stmt = $connection->prepare("UPDATE tbl_resident SET `password` =?, `lname` =?, 
         `fname` = ?, `mi` =?, `age` =?, `sex` =?, `status` =?, `email` =?, `houseno` =?, `street` =?,
         `brgy` =?, `municipal` =?, `contact` =?,
-        `bdate` =?, `bplace` =?, `nationality` =? WHERE `id_resident` = ?");
+        `bdate` =?, `bplace` =?, `nationality` =?, `voter` =?, `family_role` =?, `role` =?, `addedby` =? WHERE `id_resident` = ?");
     
     $stmt->execute([$password, $lname, $fname, $mi, $age, $sex, $status, $email, $houseno, 
-        $street, $brgy, $municipal, $contact, $bdate, $bplace, $nationality, $id_resident]);
+        $street, $brgy, $municipal, $contact, $bdate, $bplace, $nationality, $voter, $family_role, $role, $addedby, $id_resident]);
 
 } else {
     // 2. If password is empty, update everything EXCEPT the password column
     $stmt = $connection->prepare("UPDATE tbl_resident SET `lname` =?, 
         `fname` = ?, `mi` =?, `age` =?, `sex` =?, `status` =?, `email` =?, `houseno` =?, `street` =?,
         `brgy` =?, `municipal` =?, `contact` =?,
-        `bdate` =?, `bplace` =?, `nationality` =? WHERE `id_resident` = ?");
+        `bdate` =?, `bplace` =?, `nationality` =?, `voter` =?, `family_role` =?, `role` =?, `addedby` =? WHERE `id_resident` = ?");
     
     // Note: $password is removed from the array below
     $stmt->execute([$lname, $fname, $mi, $age, $sex, $status, $email, $houseno, 
-        $street, $brgy, $municipal, $contact, $bdate, $bplace, $nationality, $id_resident]);
+        $street, $brgy, $municipal, $contact, $bdate, $bplace, $nationality, $voter, $familyrole, $role, $addedby, $id_resident]);
 }
 
 $message2 = "Resident Data Updated";
@@ -132,6 +136,7 @@ echo "<script type='text/javascript'>alert('$message2');</script>";
 header("refresh: 0");
             }
         }
+
 
         public function delete_resident(){
             $id_resident = $_POST['id_resident'];
@@ -309,43 +314,58 @@ header("refresh: 0");
     //-------------------------------------- EXTRA FUNCTIONS ------------------------------------------------
 
     public function resident_changepass() {
+    // 1. Only run logic if the form was actually submitted
     if(isset($_POST['resident_changepass'])) {
-        $id_resident = $_GET['id_resident'];
-        $old_input = $_POST['oldpassword'];       // What they typed as "Old"
-        $new_input = $_POST['newpassword'];       // What they typed as "New"
-        $check_input = $_POST['checkpassword'];   // The "Confirm New" box
-
-        $connection = $this->openConn();
         
-        // 1. Get the CURRENT password from the database
-        $stmt = $connection->prepare("SELECT `password` FROM tbl_resident WHERE id_resident = ?");
-        $stmt->execute([$id_resident]);
-        $user = $stmt->fetch();
+        // Use ?? to prevent "Undefined index" notices
+        // It's safer to get the ID from a session or a POST field rather than GET for a sensitive action
+        $id_resident = $_POST['id_resident'] ?? $_GET['id_resident'] ?? null;
+        $oldpassword_input = $_POST['oldpassword'] ?? '';
+        $newpassword = $_POST['newpassword'] ?? '';
+        $checkpassword = $_POST['checkpassword'] ?? '';
 
-        // 2. CHECK: Does the resident even exist?
-        if (!$user) {
-            echo "<script>alert('User not found');</script>";
+        if (!$id_resident) {
+            echo "<script>alert('Error: Resident ID is missing.');</script>";
             return;
         }
 
-        // 3. CHECK: Does the typed OLD password match the DATABASE password?
-        if ($old_input != $user['password']) {
-            echo "<script>alert('Current password provided is incorrect');</script>";
-        } 
+        $connection = $this->openConn();
         
-        // 4. CHECK: Do the two NEW passwords match each other?
-        elseif ($new_input != $check_input) {
-            echo "<script>alert('New passwords do not match');</script>";
+        // 2. Fetch the hashed password from the database
+        $stmt = $connection->prepare("SELECT `password` FROM tbl_resident WHERE id_resident = ?");
+        $stmt->execute([$id_resident]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // 3. Validation Logic
+        if(!$result) {
+            echo "<script>alert('Resident not found.');</script>";
         } 
-        
-        // 5. SUCCESS: Update the password
+        // Use password_verify to check against the hashed DB password
+        elseif (!password_verify($oldpassword_input, $result['password'])) {
+            echo "<script>alert('Old Password is Incorrect');</script>";
+        } 
+        elseif ($newpassword !== $checkpassword) {
+            echo "<script>alert('New Password and Verification Password do not Match');</script>";
+        } 
+        elseif (empty($newpassword)) {
+            echo "<script>alert('New password cannot be empty');</script>";
+        } 
         else {
-            $update_stmt = $connection->prepare("UPDATE tbl_resident SET password = ? WHERE id_resident = ?");
-            $update_stmt->execute([$new_input, $id_resident]);
+            // 4. Update the password using a NEW hash
+            $hashed_password = password_hash($newpassword, PASSWORD_DEFAULT);
             
-            echo "<script type='text/javascript'>alert('Password Updated Successfully');</script>";
-            header("refresh: 0");
-            exit();
+            $stmt = $connection->prepare("UPDATE tbl_resident SET password = ? WHERE id_resident = ?");
+            $success = $stmt->execute([$hashed_password, $id_resident]);
+            
+            if ($success) {
+                echo "<script type='text/javascript'>
+                        alert('Password Updated Successfully');
+                        window.location.href = window.location.href; // Refresh page cleanly
+                      </script>";
+                exit();
+            } else {
+                echo "<script>alert('Database Error: Could not update password.');</script>";
+            }
         }
     }
 }

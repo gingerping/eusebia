@@ -83,27 +83,27 @@
 <div class="container-fluid">
     <div class="row mb-4">
         <div class="col-md-6">
-            <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card border-left-primary shadow h-100 py-2" style="border-left-color: #0b2b5c !important;">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Junior Enrollees</div>
+                            <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:#0b2b5c;">Total Junior Enrollees</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= number_format($total_jhs) ?></div>
                         </div>
-                        <div class="col-auto"><i class="fas fa-users fa-2x text-gray-300"></i></div>
+                        <div class="col-auto"><i class="fas fa-users fa-2x" style="color:#c5d5e8;"></i></div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card border-left-success shadow h-100 py-2">
+            <div class="card border-left-success shadow h-100 py-2" style="border-left-color: #1e5a88 !important;">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
-                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Total Senior Enrollees</div>
+                            <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:#1e5a88;">Total Senior Enrollees</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800"><?= number_format($total_shs) ?></div>
                         </div>
-                        <div class="col-auto"><i class="fas fa-user-graduate fa-2x text-gray-300"></i></div>
+                        <div class="col-auto"><i class="fas fa-user-graduate fa-2x" style="color:#c5d5e8;"></i></div>
                     </div>
                 </div>
             </div>
@@ -114,7 +114,7 @@
         <div class="col-lg-6">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                    <h6 class="m-0 font-weight-bold text-primary">JHS Monitoring (G7-G10)</h6>
+                    <h6 class="m-0 font-weight-bold" style="color:#0b2b5c;">JHS Monitoring (G7-G10)</h6>
                 </div>
                 <div class="card-body"><canvas id="jhsChart" style="height:250px;"></canvas></div>
             </div>
@@ -122,7 +122,7 @@
         <div class="col-lg-6">
             <div class="card shadow mb-4">
                 <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                    <h6 class="m-0 font-weight-bold text-success">SHS Monitoring (G11-G12)</h6>
+                    <h6 class="m-0 font-weight-bold" style="color:#1e5a88;">SHS Monitoring (G11-G12)</h6>
                 </div>
                 <div class="card-body"><canvas id="shsChart" style="height:250px;"></canvas></div>
             </div>
@@ -155,61 +155,34 @@
             // Define your data in an array for a cleaner loop
 
             $course_cards = [
-
-                ['label' => 'STEM',    'count' => $stem_count, 'color' => 'primary', 'icon' => 'microscope'],
-
-                ['label' => 'ABM',     'count' => $abm_count,  'color' => 'success', 'icon' => 'calculator'],
-
-                ['label' => 'GAS',     'count' => $gas_count,  'color' => 'warning', 'icon' => 'book'],
-
-                ['label' => 'TVL-ICT', 'count' => $ict_count,  'color' => 'info',    'icon' => 'laptop-code'],
-
-                ['label' => 'TVL-HE',  'count' => $he_count,   'color' => 'danger',  'icon' => 'utensils']
-
+                ['label' => 'STEM',    'count' => $stem_count, 'hex' => '#0b2b5c', 'icon' => 'microscope'],
+                ['label' => 'ABM',     'count' => $abm_count,  'hex' => '#0f3b7a', 'icon' => 'calculator'],
+                ['label' => 'GAS',     'count' => $gas_count,  'hex' => '#1e5a88', 'icon' => 'book'],
+                ['label' => 'TVL-ICT', 'count' => $ict_count,  'hex' => '#2a6f9c', 'icon' => 'laptop-code'],
+                ['label' => 'TVL-HE',  'count' => $he_count,   'hex' => '#4a8db5', 'icon' => 'utensils']
             ];
 
-
-
             foreach ($course_cards as $card):
-
             ?>
 
             <div class="col-12 mb-4">
-
-                <div class="card border-left-<?= $card['color'] ?> shadow py-2">
-
+                <div class="card shadow py-2" style="border-left: 4px solid <?= $card['hex'] ?>;">
                     <div class="card-body py-2">
-
                         <div class="row no-gutters align-items-center">
-
                             <div class="col mr-2">
-
-                                <div class="text-xs font-weight-bold text-<?= $card['color'] ?> text-uppercase mb-1">
-
+                                <div class="text-xs font-weight-bold text-uppercase mb-1" style="color:<?= $card['hex'] ?>;">
                                     <?= $card['label'] ?> Students
-
                                 </div>
-
                                 <div class="h6 mb-0 font-weight-bold text-gray-800">
-
                                     <?= number_format($card['count']) ?>
-
                                 </div>
-
                             </div>
-
                             <div class="col-auto">
-
-                                <i class="fas fa-<?= $card['icon'] ?> fa-lg text-gray-300"></i>
-
+                                <i class="fas fa-<?= $card['icon'] ?> fa-lg" style="color:#c5d5e8;"></i>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
 
             <?php endforeach; ?>
@@ -237,18 +210,24 @@ new Chart(ctxJHS, {
             label: 'Students',
             data: [<?= $g7 ?>, <?= $g8 ?>, <?= $g9 ?>, <?= $g10 ?>],
             backgroundColor: [
-                '#4e73df', // STEM - Blue
-                '#1cc88a', // ABM - Green
-                '#f6c23e', // GAS - Yellow
-                '#36b9cc', // ICT - Cyan
-                '#e74a3b'  // HE - Red
+                '#0b2b5c', // Grade 7  - Deep Navy
+                '#0f3b7a', // Grade 8  - Navy Blue
+                '#1e5a88', // Grade 9  - Medium Blue
+                '#2a6f9c', // Grade 10 - Steel Blue
             ],
-            borderRadius: 5
+            borderColor: [
+                '#0b2b5c',
+                '#0f3b7a',
+                '#1e5a88',
+                '#2a6f9c',
+            ],
+            borderWidth: 1,
+            borderRadius: 6
         }]
     },
     options: {
         plugins: { legend: { display: false } },
-        scales: { y: { beginAtZero: true } }
+        scales: { y: { beginAtZero: true, grid: { color: 'rgba(11,43,92,0.07)' } } }
     }
 });
 
@@ -262,10 +241,15 @@ new Chart(ctxSHS, {
             label: 'Students',
             data: [<?= $g11 ?>, <?= $g12 ?>],
             backgroundColor: [
-                '#36b9cc', // ICT - Cyan
-                '#e74a3b'  // HE - Red
+                '#0b2b5c', // Grade 11 - Deep Navy
+                '#1e5a88', // Grade 12 - Medium Blue
             ],
-            borderRadius: 5
+            borderColor: [
+                '#0b2b5c',
+                '#1e5a88',
+            ],
+            borderWidth: 1,
+            borderRadius: 6
         }]
     },
     options: {
@@ -290,13 +274,21 @@ new Chart(ctxStrand, {
                 <?= (int)$he ?>
             ], 
             backgroundColor: [
-                '#4e73df', // STEM - Blue
-                '#1cc88a', // ABM - Green
-                '#f6c23e', // GAS - Yellow
-                '#36b9cc', // ICT - Cyan
-                '#e74a3b'  // HE - Red
+                '#0b2b5c', // STEM  - Deep Navy
+                '#0f3b7a', // ABM   - Navy Blue
+                '#1e5a88', // GAS   - Medium Blue
+                '#2a6f9c', // ICT   - Steel Blue
+                '#4a8db5', // HE    - Light Steel Blue
             ],
-            borderRadius: 5
+            borderColor: [
+                '#0b2b5c',
+                '#0f3b7a',
+                '#1e5a88',
+                '#2a6f9c',
+                '#4a8db5',
+            ],
+            borderWidth: 1,
+            borderRadius: 6
         }]
     },
     options: {

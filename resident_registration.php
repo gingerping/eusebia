@@ -80,7 +80,7 @@
 
         <!-- eto yung navbar -->
         <nav class="navbar">
-            <a class="navbar-brand" style="color: white;">EUSEBIA PAZ ARROYO NATIONAL HIGH SCHOOL</a>
+            <a class="navbar-brand" style="color: white;">EUSEBIA PAZ ARROYO MEMORIAL NATIONAL HIGH SCHOOL</a>
         </nav>
 
         <div class="container-fluid"  style="margin-top: 4em;">
@@ -332,7 +332,7 @@
         <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
     </body>
      <footer>
-    <p>Eusebia Paz Arroyo National High School &middot; Department of Education</p>
+    <p>Eusebia Paz Arroyo Memorial National High School &middot; Department of Education</p>
   </footer>
 </html>
 

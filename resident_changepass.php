@@ -1,572 +1,384 @@
 <?php 
-    error_reporting(E_ALL ^ E_WARNING);
-    require('classes/resident.class.php');
+error_reporting(E_ALL ^ E_WARNING);
+require('classes/resident.class.php');
 
-    //$view = $residentbmis->view_single_resident($email);
-    $userdetails = $residenteusebia->get_userdata();
-    $residenteusebia->resident_changepass();
-    //print_r($userdetails);
+$userdetails = $residenteusebia->get_userdata();
+$residenteusebia->resident_changepass();
 
-    
-    
+$dt = new DateTime("now", new DateTimeZone('Asia/Manila'));
+$current_date = $dt->format('l, F j, Y');
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>EPAMNHS | Change Password</title>
 
-<!DOCTYPE html> 
-<html>
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
-    <head> 
-    <title> Barangay Management System </title>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>
-      <!-- responsive tags for screen compatibility -->
-      <meta name="viewport" content="width=device-width, initial-scale=1"><!-- bootstrap css --> 
-      <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
-      <!-- fontawesome icons --> 
-      <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- AOS Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(145deg, #f8faff 0%, #f0f4fe 100%);
+            color: #1a2c3e;
+            scroll-behavior: smooth;
+        }
 
-        /* Back-to-Top */
+        /* ========== NAVBAR (same as portal) ========== */
+        .navbar-custom {
+            background: linear-gradient(135deg, #0b2b5c 0%, #0f3b7a 100%);
+            backdrop-filter: blur(8px);
+            padding: 0.9rem 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: white !important;
+            transition: transform 0.2s;
+        }
+        .navbar-brand:hover { transform: scale(1.02); }
+        .dropdown-toggle-custom {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(4px);
+            border-radius: 40px;
+            padding: 8px 20px;
+            border: 1px solid rgba(255,255,255,0.25);
+            color: white !important;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .dropdown-toggle-custom:hover {
+            background: rgba(255,255,255,0.25);
+            border-color: rgba(255,255,255,0.5);
+        }
+        .dropdown-menu-custom {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+            padding: 12px 6px;
+            min-width: 210px;
+            background: #ffffffdd;
+            backdrop-filter: blur(12px);
+        }
+        .dropdown-item-custom {
+            border-radius: 16px;
+            padding: 10px 18px;
+            font-weight: 500;
+            transition: all 0.2s;
+            color: #0b2b5c;
+        }
+        .dropdown-item-custom i { width: 28px; margin-right: 6px; }
+        .dropdown-item-custom:hover {
+            background: #eef2ff;
+            transform: translateX(5px);
+        }
+        .home-icon {
+            color: white;
+            font-size: 1.4rem;
+            margin-right: 1rem;
+            transition: 0.2s;
+        }
+        .home-icon:hover {
+            transform: scale(1.08);
+            color: #f0f4fe;
+        }
 
+        /* ========== CHANGE PASSWORD CARD ========== */
+        .password-card {
+            max-width: 550px;
+            margin: 2rem auto;
+            background: white;
+            border-radius: 36px;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        .card-header-custom {
+            background: linear-gradient(135deg, #0b2b5c, #1f5a9e);
+            padding: 1.5rem;
+            text-align: center;
+            color: white;
+        }
+        .card-header-custom h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin: 0;
+        }
+        .card-body-custom {
+            padding: 2rem;
+        }
+        .input-group-custom {
+            display: flex;
+            align-items: center;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            transition: all 0.2s;
+            margin-bottom: 1.2rem;
+            position: relative;
+        }
+        .input-group-custom:focus-within {
+            border-color: #2a6f9c;
+            box-shadow: 0 0 0 3px rgba(42,111,156,0.15);
+            background: white;
+        }
+        .input-icon {
+            padding: 0.75rem 0 0.75rem 1.2rem;
+            color: #2a6f9c;
+            font-size: 1rem;
+        }
+        .input-field {
+            width: 100%;
+            padding: 0.75rem 2.5rem 0.75rem 0.5rem;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 1rem;
+            cursor: pointer;
+            color: #94a3b8;
+            transition: 0.2s;
+        }
+        .toggle-password:hover {
+            color: #2a6f9c;
+        }
+        .form-label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #1f3a5f;
+            margin-bottom: 0.5rem;
+        }
+        #message {
+            font-size: 0.8rem;
+            margin: -0.5rem 0 1rem 0;
+            display: block;
+        }
+        .btn-change {
+            background: linear-gradient(135deg, #0b2b5c, #1f5a9e);
+            border: none;
+            border-radius: 40px;
+            padding: 0.8rem;
+            font-weight: 600;
+            font-size: 1rem;
+            width: 100%;
+            color: white;
+            transition: all 0.2s;
+        }
+        .btn-change:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #1f3a6b, #2a6f9c);
+            box-shadow: 0 8px 18px rgba(11,43,92,0.25);
+        }
+
+        /* ========== BACK TO TOP ========== */
         .top-link {
-        transition: all 0.25s ease-in-out;
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        display: inline-flex;
-        cursor: pointer;
-        align-items: center;
-        justify-content: center;
-        margin: 0 3em 3em 0;
-        border-radius: 50%;
-        padding: 0.25em;
-        width: 80px;
-        height: 80px;
-        background-color: #3661D5;
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #0b2b5c;
+            width: 48px;
+            height: 48px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            z-index: 99;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
         }
         .top-link.show {
-        visibility: visible;
-        opacity: 1;
-        }
-        .top-link.hide {
-        visibility: hidden;
-        opacity: 0;
-        }
-        .top-link svg {
-        fill: white;
-        width: 24px;
-        height: 12px;
+            opacity: 1;
+            visibility: visible;
         }
         .top-link:hover {
-        background-color: #3498DB;
-        }
-        .top-link:hover svg {
-        fill: #000000;
-        }
-
-        .screen-reader-text {
-        position: absolute;
-        clip-path: inset(50%);
-        margin: -1px;
-        border: 0;
-        padding: 0;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        word-wrap: normal !important;
-        clip: rect(1px, 1px, 1px, 1px);
-        }
-        .screen-reader-text:focus {
-        display: block;
-        top: 5px;
-        left: 5px;
-        z-index: 100000;
-        clip-path: none;
-        background-color: #eee;
-        padding: 15px 23px 14px;
-        width: auto;
-        height: auto;
-        text-decoration: none;
-        line-height: normal;
-        color: #444;
-        font-size: 1em;
-        clip: auto !important;
+            background: #1f5a9e;
+            transform: translateY(-5px);
+            color: white;
         }
 
-        /* Navbar Buttons */
-
-        .btn3 {
-        border-radius: 20px;
-        border: none; /* Remove borders */
-        color: white; /* White text */
-        font-size: 16px; /* Set a font size */
-        cursor: pointer; /* Mouse pointer on hover */
-        margin-left: 23%;
-        padding: 8px 22px;
+        /* ========== FOOTER ========== */
+        .footer-custom {
+            background: #0b1f33;
+            color: #cddcec;
+            padding: 2rem 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top-left-radius: 32px;
+            border-top-right-radius: 32px;
+            margin-top: 3rem;
         }
 
-        .btn4 {
-        border-radius: 20px;
-        border: none; /* Remove borders */
-        color: white; /* White text */
-        font-size: 16px; /* Set a font size */
-        cursor: pointer; /* Mouse pointer on hover */
-        padding: 8px 22px;
-        margin-left: .1%;
+        @media (max-width: 600px) {
+            .password-card { margin: 1rem; }
+            .card-body-custom { padding: 1.5rem; }
         }
-
-        .btn5 {
-        border-radius: 20px;
-        border: none; /* Remove borders */
-        color: white; /* White text */
-        font-size: 16px; /* Set a font size */
-        cursor: pointer; /* Mouse pointer on hover */
-        padding: 8px 22px;
-        margin-left: .1%;
-        }
-
-        /* Darker background on mouse-over */
-        .btn3:hover {
-        background-color: RoyalBlue;
-        color: black;
-        }
-
-        .btn4:hover {
-        background-color: RoyalBlue;
-        color: black;
-        }
-
-        .btn5:hover {
-        background-color: RoyalBlue;
-        color: black;
-        }
-    
-        .input-container {
-        display: -ms-flexbox; /* IE10 */
-        display: flex;
-        width: 100%;
-        margin-bottom: 10px;
-        }
-
-        .icon {
-        padding: 15px;
-        background: dodgerblue;
-        color: white;
-        min-width: 50px;
-        text-align: center;
-        }
-
-        .input-field {
-        width: 100%;
-        padding: 10px;
-        outline: none;
-        }
-
-        .input-field:focus {
-        border: 2px solid dodgerblue;
-        }
-
-        /* Set a style for the submit button */
-        .btn2 {
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        cursor: pointer;
-        width: 35%;
-        opacity: 0.9;
-        margin-left: 33%;
-        border-radius: 15px;
-        }
-
-        .btn2:hover {
-        opacity: 10;
-        }
-
-        .field-icon {
-        margin-left: 88%;
-        margin-top: 3%;
-        position: absolute;
-        z-index: 2;
-        }
-
-        a{
-      color:white;
-      }
-      .shfooter .collapse {
-          display: inherit;
-      }
-          @media (max-width:767px) {
-      .shfooter ul {
-              margin-bottom: 0;
-      }
-
-      .shfooter .collapse {
-              display: none;
-      }
-
-      .shfooter .collapse.show {
-              display: block;
-      }
-
-      .shfooter .title .fa-angle-up,
-      .shfooter .title[aria-expanded=true] .fa-angle-down {
-              display: none;
-      }
-
-      .shfooter .title[aria-expanded=true] .fa-angle-up {
-              display: block;
-      }
-
-      .shfooter .navbar-toggler {
-              display: inline-block;
-              padding: 0;
-      }
-
-      }
-
-      .resize {
-          text-align: center;
-      }
-      .resize {
-          margin-top: 3rem;
-          font-size: 1.25rem;
-      }
-      /*RESIZESCREEN ANIMATION*/
-      .fa-angle-double-right {
-          animation: rightanime 1s linear infinite;
-      }
-
-      .fa-angle-double-left {
-          animation: leftanime 1s linear infinite;
-      }
-      @keyframes rightanime {
-          50% {
-              transform: translateX(10px);
-              opacity: 0.5;
-      }
-          100% {
-              transform: translateX(10px);
-              opacity: 0;
-      }
-      }
-      @keyframes leftanime {
-          50% {
-              transform: translateX(-10px);
-              opacity: 0.5;
-      }
-          100% {
-              transform: translateX(-10px);
-              opacity: 0;
-      }
-      }
-
-    /* Contact Chip */
-
-    .chip {
-    display: inline-block;
-    padding: 0 25px;
-    height: 50px;
-    line-height: 50px;
-    border-radius: 25px;
-    background-color: #2C54C1;
-    margin-top: 5px;
-    }
-
-    .chip img {
-    float: left;
-    margin: 0 10px 0 -25px;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    }
-
-    .zoom {
-    transition: transform .3s;
-    }
-
-    .zoom:hover {
-    -ms-transform: scale(1.4); /* IE 9 */
-    -webkit-transform: scale(1.4); /* Safari 3-8 */
-    transform: scale(1.4); 
-    }
-
     </style>
+</head>
+<body>
 
-    <body> 
-
-        <!-- Back-to-Top and Back Button -->
-
-        <a data-toggle="tooltip" title="Back-To-Top" class="top-link hide" href="" id="js-top">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6"><path d="M12 6H0l6-6z"/></svg>
-            <span class="screen-reader-text">Back to top</span>
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="resident_homepage.php">
+            <i class="bi bi-mortarboard-fill me-2"></i> EPAMNHS Portal
         </a>
-
-        <!-- Eto yung navbar -->
-
-        <nav class="navbar navbar-dark bg-primary sticky-top">
-            <a class="navbar-brand" href="resident_homepage.php">Barangay Information & E-Services Management System</a>
-            <a href="resident_homepage.php" data-toggle="tooltip" title="Home" class="btn3 bg-primary"><i class="fa fa-home fa-lg"></i></a>
-            <a href="#down1" data-toggle="tooltip" title="Change Password" class="btn5 bg-primary"><i class="fa fa-user-lock fa-lg"></i></a>
-            <a href="#down" data-toggle="tooltip" title="Contact" class="btn4 bg-primary"><i class="fa fa-phone fa-lg"></i></a>
-           
-            <div class="dropdown ml-auto">
-                <button title="Your Account" class="btn btn-primary dropdown-toggle" style="margin-right: 2px;" type="button" data-toggle="dropdown"><?= $userdetails['surname'];?>, <?= $userdetails['firstname'];?>
-                    <span class="caret" style="margin-left: 2px;"></span>
+        <div class="ms-auto d-flex align-items-center">
+            <a href="resident_homepage.php" class="home-icon me-3" data-bs-toggle="tooltip" title="Home">
+                <i class="fas fa-home fa-lg"></i>
+            </a>
+            <div class="dropdown">
+                <button class="btn dropdown-toggle-custom dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-user-circle me-2"></i> <?= htmlspecialchars($userdetails['surname'] . ', ' . $userdetails['firstname']); ?>
                 </button>
-                <ul class="dropdown-menu" style="width: 175px;" >
-                    <a class="btn" href="resident_profile.php?id_resident=<?= $userdetails['id_resident'];?>"> <i class="fas fa-user"> &nbsp; </i>Personal Profile  </a>
-                    <a class="btn" href="resident_changepass.php?id_resident=<?= $userdetails['id_resident'];?>"> <i class="fas fa-lock" >&nbsp;</i> Change Password  </a>
-                    <a class="btn" href="logout.php"> <i class="fas fa-sign-out-alt">&nbsp;</i> Logout  </a>
+                <ul class="dropdown-menu dropdown-menu-custom dropdown-menu-end" aria-labelledby="userDropdown">
+                    <li><a class="dropdown-item dropdown-item-custom" href="resident_profile.php?id_resident=<?= $userdetails['id_resident'] ?>"><i class="fas fa-id-card"></i> My Profile</a></li>
+                    <li><a class="dropdown-item dropdown-item-custom" href="resident_changepass.php?id_resident=<?= $userdetails['id_resident'] ?>"><i class="fas fa-key"></i> Change Password</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item dropdown-item-custom" href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
                 </ul>
-            </div>
-        </nav>
-
-        <div id="down1"></div>
-
-        <br>
-
-        <div class="container" style="margin-top: 3em;">
-            <div class="row">
-                <div class="col-12">
-
-                    <br>
-
-                    <div class="row margin mtop"> 
-                        <div class="col-3"> </div>
-                        <div class="col-6">   
-                            <div class="card mbottom">
-                            <div class="card-header bg-primary text-white text-center" style="font-size:30px"> Change Password </div>
-                            <br>
-
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col">
-                                            <form method="post">
-                                                
-                                                <label> Current Password: </label>
-                                                <div class="input-container">
-                                                    <i class="fa fa-lock icon"></i>
-                                                    <input class="input-field" type="password" id="password-field" name="oldpassword password" placeholder="Enter Current Password" require>
-                                                    <input class="input-field" type="hidden" id="password-field" name="oldpasswordverify password" value="<?= $userdetails['password']?>">
-                                                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                                                </div>
-
-                                                <br>
-
-                                                <label> New Password: </label>
-                                                <div class="input-container">
-                                                    <i class="fa fa-key icon"></i>
-                                                    <input class="input-field" id="password1" type="password" name="password1 newpassword" placeholder="Enter New Password" require>
-                                                </div>
-                                                
-                                                <br>
-
-                                                <label> Verify Password: </label>
-                                                <div class="input-container">
-                                                    <i class="fa fa-user-lock icon"></i>
-                                                    <input class="input-field" id="confirm_password" type="password" name="checkpassword confirm_password" placeholder="Enter Verify Password" required>
-                                                </div>
-
-                                                <span id="message"></span>
-
-                                                <br>
-                                                <br>
-
-                                                <button class="btn2 btn-success create-button" type="submit" name="resident_changepass"> Change Password </button>
-                                            </form>
-                                        </div>  
-                                    </div>   
-                                </div>
-                            </div>
-                        </div> 
-
-                        <div class="col-3"> 
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
+    </div>
+</nav>
 
-        <br>
-        <br>
-        <br>
-        <br>
+<!-- ========== CHANGE PASSWORD CARD ========== -->
+<div class="container">
+    <div class="password-card" data-aos="fade-up">
+        <div class="card-header-custom">
+            <h3><i class="fas fa-lock me-2"></i>Change Password</h3>
+            <p class="mb-0 opacity-75 small">Secure your account</p>
+        </div>
+        <div class="card-body-custom">
+           <form method="post">
+    <input type="hidden" name="id_resident" value="<?= $userdetails['id_resident'] ?>">
 
-        <!-- Footer -->
+    <div class="form-label">Current Password</div>
+    <div class="input-group-custom">
+        <div class="input-icon"><i class="fas fa-lock"></i></div>
+        <input class="input-field" type="password" name="oldpassword" required>
+    </div>
 
-        <footer id="footer" class="bg-primary text-white d-flex-column text-center">
-            <hr class="mt-0">
+    <div class="form-label">New Password</div>
+    <div class="input-group-custom">
+        <div class="input-icon"><i class="fas fa-key"></i></div>
+        <input class="input-field" type="password" name="newpassword" required>
+    </div>
 
-            <div class="text-center">
-                <h1>Services</h1>
-                <ul class="list-unstyled list-inline">
+    <div class="form-label">Confirm New Password</div>
+    <div class="input-group-custom">
+        <div class="input-icon"><i class="fas fa-user-lock"></i></div>
+        <input class="input-field" type="password" name="checkpassword" required>
+    </div>
 
-                &nbsp;
+    <button class="btn btn-change" type="submit" name="resident_changepass">Update Password</button>
+</form>
+        </div>
+    </div>
+</div>
 
-                <li class="list-inline-item">
-                    <a href="#!" class="sbtn btn-large mx-1" title="Documents">
-                    <i class="fas fa-file fa-2x"></i>
-                    </a>
-                </li>
-
-                &nbsp;
-
-                <li class="list-inline-item">
-                    <a href="#!" class="footerlinks sbtn btn-large mx-1" title="Card">
-                    <i class="fas fa-id-card fa-2x"></i>
-                    </a>
-                </li>
-
-                &nbsp;
-
-                <li class="list-inline-item">
-                    <a href="#!" class="sbtn btn-large mx-1" title="Friends">
-                    <i class="fas fa-user-friends fa-2x"></i>
-                    </a>
-                </li>
-
-                &nbsp;
-
-                <li class="list-inline-item">
-                    <a href="#!" class="sbtn btn-large mx-1" title="Blotter">
-                    <i class="fas fa-user-shield fa-2x"></i>
-                    </a>
-                </li>
-
-                &nbsp;
-
-                <li class="list-inline-item">
-                    <a href="#!" class="sbtn btn-large mx-1" title="Contact">
-                    <i class="fas fa-phone fa-2x"></i>
-                    </a>
-                </li>
-                </ul>
+<!-- Back to Top Button -->
+<a href="#" class="top-link" id="backToTopBtn">
+    <i class="fas fa-arrow-up"></i>
+</a>
+<br><br><br><br><br><br>
+<!-- Footer -->
+<footer class="footer-custom">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-3 mb-md-0">
+                <i class="fas fa-school me-2"></i> Eusebia Paz Arroyo Memorial National High School<br>
             </div>
-
-            <hr class="mb-0">
-
-            <!--Footer Links-->
-
-            <div class="container text-left text-md-center">
-                <div class="row">
-
-                    <!--First column-->
-
-                    <div class="col-md-3 mx-auto shfooter">
-                        <h5 class="my-2 font-weight-bold d-none d-md-block">Documentation</h5>
-                        <div class="d-md-none title" data-target="#Documentation" data-toggle="collapse">
-                            <div class="mt-3 font-weight-bold">Documentation
-                                <div class="float-right navbar-toggler">
-                                    <i class="fas fa-angle-down"></i>
-                                    <i class="fas fa-angle-up"></i>
-                                </div>
-                            </div>
-                        </div>
-                        <ul class="list-unstyled collapse" id="Documentation">
-                            <li><a href="services_certofres.php">Certificate of Residency</a></li>
-                            <li><a href="services_brgyclearance.php">Barangay Clearance</a></li>
-                            <li><a href="services_certofindigency.php">Certificate of Indigency</a></li>
-                            <li><a href="services_business.php">Business Permit</a></li>
-                            <li><a href="services_brgyid.php">Barangay ID</a></li>
-                        </ul>
-                    </div>
-
-                    <!--/.First column-->
-
-                    <hr class="clearfix w-100 d-md-none mb-0">
-
-                    <!--Third column-->
-
-                    <div class="col-md-3 mx-auto shfooter">
-                        <h5 class="my-2 font-weight-bold d-none d-md-block">Other Services</h5>
-                        <div class="d-md-none title" data-target="#OtherServices" data-toggle="collapse">
-                            <div class="mt-3 font-weight-bold">Other Services
-                                <div class="float-right navbar-toggler">
-                                    <i class="fas fa-angle-down"></i>
-                                    <i class="fas fa-angle-up"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <ul class="list-unstyled collapse" id="OtherServices">
-                            <li><a href="services_blotter.php">Peace and Order</a></li>
-                        </ul>
-                    </div>
-
-                    <!--/.Third column-->
-
-                    <hr class="clearfix w-100 d-md-none mb-0">
-
-                </div>
+            <div class="col-md-6 text-md-end">
+                <p class="mb-0"> <?= date('Y') ?> EPAMNHS Portal.</p>
             </div>
+        </div>
+    </div>
+</footer>
 
-            <!--/.Footer Links-->
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true, offset: 40 });
 
-            <hr class="mb-0">
-        </footer>
-
-        <script>
-            $(".toggle-password").click(function() {
-            $(this).toggleClass("fa-eye fa-eye-slash");
-            var input = $($(this).attr("toggle"));
-            if (input.attr("type") == "password") {
-            input.attr("type", "text");
+    // Toggle password visibility
+    document.querySelectorAll('.toggle-password').forEach(icon => {
+        icon.addEventListener('click', function() {
+            const input = document.querySelector(this.getAttribute('toggle'));
+            if (input.type === 'password') {
+                input.type = 'text';
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
             } else {
-            input.attr("type", "password");
+                input.type = 'password';
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
             }
-            });
-        </script>
+        });
+    });
 
-        <script>
-            $('#password1, #confirm_password').on('keyup', function () {
-            if ($('#password1').val() == $('#confirm_password').val()) {
-                $('#message').html('New and Verify Password are match').css('color', 'green');
-            } else 
-                $('#message').html('New and Verify Password does not match').css('color', 'red');
-            });
-        </script>
+    // Password match validation
+    const newPwd = document.getElementById('newPassword');
+    const confirmPwd = document.getElementById('confirmPassword');
+    const messageSpan = document.getElementById('message');
 
-        <script>
-            $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
-            });
-        </script>
+    function validateMatch() {
+        if (newPwd.value === confirmPwd.value && newPwd.value !== '') {
+            messageSpan.innerHTML = '✓ Passwords match';
+            messageSpan.style.color = '#2e7d32';
+        } else if (confirmPwd.value !== '') {
+            messageSpan.innerHTML = '✗ Passwords do not match';
+            messageSpan.style.color = '#d32f2f';
+        } else {
+            messageSpan.innerHTML = '';
+        }
+    }
 
-        <script>
-            $(document).ready(function(){
-            // Add smooth scrolling to all links
-            $("a").on('click', function(event) {
+    newPwd.addEventListener('keyup', validateMatch);
+    confirmPwd.addEventListener('keyup', validateMatch);
 
-                // Make sure this.hash has a value before overriding default behavior
-                if (this.hash !== "") {
-                // Prevent default anchor click behavior
-                event.preventDefault();
+    // Back to top
+    const backBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) backBtn.classList.add('show');
+        else backBtn.classList.remove('show');
+    });
+    backBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
-                // Store hash
-                var hash = this.hash;
-
-                // Using jQuery's animate() method to add smooth page scroll
-                // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-                $('html, body').animate({
-                    scrollTop: $(hash).offset().top
-                }, 800, function(){
-
-                    // Add hash (#) to URL when done scrolling (default click behavior)
-                    window.location.hash = hash;
-                });
-                } // End if
-            });
-            });
-        </script>
-                <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
-    </body>
+    // Tooltips (if any)
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(el => new bootstrap.Tooltip(el));
+</script>
+</body>
 </html>

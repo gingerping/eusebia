@@ -1,166 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <title>Eusebia Paz Arroyo National High School</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
+  <title>EPAMNHS | Vision, Mission & Core Values</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Google Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- AOS Library (optional scroll animations) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
+    * {
       margin: 0;
       padding: 0;
-    }
-
-    :root {
-      --navy-dark:    #0a2e5c;
-      --navy-mid:     #103f80;
-      --navy-light:   #1a5ca8;
-      --gold:         #ffd700;
-      --gold-soft:    rgba(255, 215, 0, 0.75);
-      --white:        #ffffff;
-      --bg:           #f7f8fc;
-      --card-bg:      #ffffff;
-      --border:       rgba(10, 46, 92, 0.12);
-      --text-primary: #1a1e2e;
-      --text-muted:   #5a6478;
-      --blue-light:   #e6f1fb;
-      --green-light:  #eaf3de;
-      --purple-light: #eeedfe;
-      --blue-accent:  #185fa5;
-      --green-accent: #3b6d11;
-      --purple-accent:#534ab7;
+      box-sizing: border-box;
     }
 
     body {
-      font-family: 'Source Serif 4', serif;
-      background-color: var(--bg);
-      color: var(--text-primary);
-      min-height: 100vh;
-      filter: saturate(1.2) brightness(1.1);
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #f8faff 0%, #f0f4fe 100%);
+      color: #1a2c3e;
+      scroll-behavior: smooth;
     }
 
-    /* ── NAVBAR ── */
-    .navbar {
-      background: rgba(10, 46, 92, 0.97);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 215, 0, 0.15);
+    /* ========== NAVBAR (modern gradient, same as portal) ========== */
+    .navbar-custom {
+      background: linear-gradient(135deg, #0b2b5c 0%, #0f3b7a 100%);
+      backdrop-filter: blur(8px);
+      padding: 0.9rem 2rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 1000;
     }
-
-    .navbar-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 1.5rem;
-      height: 58px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
     .navbar-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      text-decoration: none;
-    }
-
-    .navbar-logo {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(255, 215, 0, 0.5);
-      background: rgba(255, 215, 0, 0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      flex-shrink: 0;
-    }
-
-    .navbar-title {
       font-family: 'Playfair Display', serif;
-      font-size: 14px;
       font-weight: 700;
-      color: #ffffff;
-      line-height: 1.2;
-      max-width: 200px;
+      font-size: 1.5rem;
+      letter-spacing: -0.3px;
+      color: white !important;
+      transition: transform 0.2s;
     }
-
-    .navbar-title span {
-      display: block;
-      font-family: 'Source Serif 4', serif;
-      font-size: 10px;
-      font-weight: 300;
-      color: var(--gold-soft);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+    .navbar-brand:hover {
+      transform: scale(1.02);
     }
-
-    .navbar-actions {
+    .nav-buttons {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
-
+    .btn-nav {
+      border-radius: 40px;
+      padding: 8px 22px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
     .btn-login {
-      font-family: 'Source Serif 4', serif;
-      font-size: 13.5px;
-      font-weight: 400;
-      color: rgba(255, 255, 255, 0.85);
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.25);
-      border-radius: 8px;
-      padding: 0.42rem 1.1rem;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: white;
     }
-
     .btn-login:hover {
-      background: rgba(255, 255, 255, 0.08);
-      border-color: rgba(255, 255, 255, 0.45);
-      color: #ffffff;
+      background: rgba(255,255,255,0.25);
+      color: white;
     }
-
     .btn-register {
-      font-family: 'Source Serif 4', serif;
-      font-size: 13.5px;
-      font-weight: 400;
-      color: var(--navy-dark);
-      background: var(--gold-soft);
-      border: 1px solid var(--gold);
-      border-radius: 8px;
-      padding: 0.42rem 1.1rem;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.18s ease, opacity 0.18s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
+      background: #ffd700cc;
+      border: 1px solid #ffd700;
+      color: #0b2b5c;
     }
-
     .btn-register:hover {
-      background: #f5f3eb;
-      border-color: #f8f7ef;
+      background: #ffd700;
+      color: #0b2b5c;
+      transform: translateY(-2px);
     }
-
-    .btn-icon {
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-    }
-
-    /* Hamburger (mobile) */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -168,536 +92,463 @@
       background: none;
       border: none;
       cursor: pointer;
-      padding: 4px;
     }
-
     .hamburger span {
-      display: block;
-      width: 22px;
+      width: 24px;
       height: 2px;
-      background: rgba(255,255,255,0.8);
+      background: white;
       border-radius: 2px;
-      transition: transform 0.2s ease, opacity 0.2s ease;
     }
-
     .mobile-menu {
       display: none;
       flex-direction: column;
-      gap: 8px;
-      padding: 1rem 1.5rem 1.25rem;
-      border-top: 1px solid rgba(255,215,0,0.1);
-      background: rgba(10, 46, 92, 0.98);
+      background: #0b2b5c;
+      padding: 1rem 1.5rem;
+      gap: 12px;
+      border-top: 1px solid rgba(255,255,255,0.1);
     }
-
-    .mobile-menu.open { display: flex; }
-
-    .mobile-menu .btn-login,
-    .mobile-menu .btn-register {
+    .mobile-menu .btn-nav {
       width: 100%;
       justify-content: center;
-      padding: 0.65rem 1rem;
-      font-size: 14px;
     }
-
-    @media (max-width: 540px) {
-      .navbar-actions { display: none; }
+    @media (max-width: 768px) {
+      .nav-buttons { display: none; }
       .hamburger { display: flex; }
-      .navbar-title { max-width: 160px; font-size: 13px; }
+      .navbar-custom { padding: 0.9rem 1.2rem; }
     }
-
-    /* ── HERO BANNER ── */
+    
+    /* ========== HERO SECTION with background image ========== */
     .hero {
       position: relative;
       width: 100%;
-      height: 420px;
+      height: 380px;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
     }
-
     .hero-bg {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-position: center;
       z-index: 0;
     }
-
-    /* dark gradient overlay so text is always readable */
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(10, 46, 92, 0.55) 0%,
-        rgba(10, 46, 92, 0.72) 60%,
-        rgba(10, 46, 92, 0.88) 100%
-      );
+      background: linear-gradient(135deg, rgba(11,43,92,0.3), rgba(15,59,122,0.45));
       z-index: 1;
     }
-
     .hero-content {
       position: relative;
       z-index: 2;
-      padding: 2rem 1.5rem 4.5rem;
+      padding: 2rem 1.5rem;
     }
-
     .seal-ring {
-      width: 90px;
-      height: 90px;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1.2rem;
+      background: rgba(255,255,255,0.1);
       border-radius: 50%;
-      border: 2.5px solid rgba(255, 215, 0, 0.6);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1.5rem;
-    }
-
-    .seal-inner {
-      width: 70px;
-      height: 70px;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 215, 0, 0.35);
-      background: rgba(255, 215, 0, 0.12);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 30px;
+      border: 2px solid rgba(255,215,0,0.5);
     }
-
+    .seal-ring img {
+  filter: brightness(1.05) contrast(1.1);
+  background: rgba(255,255,255,0.9);
+  border-radius: 50%;
+  padding: 8px;
+}
     .school-name {
       font-family: 'Playfair Display', serif;
-      color: var(--white);
-      font-size: 26px;
+      font-size: 2.2rem;
       font-weight: 700;
-      line-height: 1.3;
-      max-width: 540px;
-      margin: 0 auto 0.5rem;
-      text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      color: white;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
     }
-
     .school-sub {
-      color: var(--gold-soft);
-      font-size: 13px;
-      font-weight: 300;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      color: rgba(255,215,0,0.85);
+      font-size: 0.9rem;
+      letter-spacing: 1px;
     }
-
     .divider-gold {
-      width: 64px;
+      width: 70px;
       height: 2px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      margin: 1.5rem auto;
+      background: linear-gradient(90deg, transparent, #ffd700, transparent);
+      margin: 1.2rem auto;
     }
-
     .hero-caption {
-      color: rgba(255, 255, 255, 0.65);
-      font-size: 14px;
-      font-weight: 300;
-      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.7);
+      font-size: 0.85rem;
     }
-
-    /* upload hint banner */
     .photo-hint {
       position: absolute;
-      bottom: 10px;
-      right: 14px;
+      bottom: 12px;
+      right: 16px;
       z-index: 3;
-      background: rgba(0,0,0,0.45);
-      color: rgba(255,255,255,0.7);
-      font-size: 11px;
+      background: rgba(0,0,0,0.5);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.7rem;
       padding: 4px 10px;
-      border-radius: 6px;
-      font-weight: 300;
-      letter-spacing: 0.04em;
+      border-radius: 20px;
       cursor: pointer;
-      border: 1px solid rgba(255,255,255,0.15);
-      transition: background 0.2s;
+      transition: 0.2s;
     }
-
-    .photo-hint:hover { background: rgba(0,0,0,0.65); }
-
-    @media (max-width: 500px) {
-      .hero          { height: 320px; }
-      .school-name   { font-size: 20px; }
-      .hero-content  { padding-bottom: 3.5rem; }
+    .photo-hint:hover {
+      background: rgba(0,0,0,0.8);
     }
-
-    /* ── CONTENT ── */
+    @media (max-width: 600px) {
+      .hero { height: 320px; }
+      .school-name { font-size: 1.6rem; }
+      .seal-ring { width: 80px; height: 80px; }
+      .seal-ring img { width: 55px; }
+    }
+    
+    /* ========== CARDS SECTION ========== */
     .content {
-      max-width: 740px;
+      max-width: 900px;
       margin: 0 auto;
-      padding: 0 1.5rem 3.5rem;
+      padding: 2rem 1.5rem 4rem;
     }
-
     .card-section {
-      margin-top: -2.5rem;
+      margin-top: -2rem;
       position: relative;
     }
-
-    /* ── CARDS ── */
     .mv-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 16px;
+      background: white;
+      border-radius: 28px;
+      box-shadow: 0 18px 35px -12px rgba(0,0,0,0.1);
+      margin-bottom: 1.8rem;
+      transition: all 0.3s ease;
       overflow: hidden;
-      margin-bottom: 1.25rem;
-      box-shadow: 0 4px 24px rgba(10, 46, 92, 0.09);
-      transition: box-shadow 0.2s ease;
     }
-
     .mv-card:hover {
-      box-shadow: 0 8px 32px rgba(10, 46, 92, 0.14);
+      transform: translateY(-6px);
+      box-shadow: 0 25px 40px -16px rgba(0,0,0,0.15);
     }
-
     .card-header {
+      padding: 1.5rem 1.8rem 0.8rem;
       display: flex;
       align-items: center;
-      gap: 14px;
-      padding: 1.1rem 1.5rem 1rem;
-      border-bottom: 1px solid var(--border);
+      gap: 1rem;
+      border-bottom: 1px solid #eef2f8;
     }
-
     .icon-badge {
-      width: 44px;
-      height: 44px;
-      border-radius: 11px;
+      width: 56px;
+      height: 56px;
+      border-radius: 20px;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
+      background: #eef2ff;
     }
-
-    .icon-badge.vision  { background: var(--blue-light); }
-    .icon-badge.mission { background: var(--green-light); }
-    .icon-badge.core    { background: var(--purple-light); }
-
     .icon-badge svg {
-      width: 22px;
-      height: 22px;
+      width: 28px;
+      height: 28px;
     }
-
     .card-label {
-      font-size: 18px;
+      font-size: 1.6rem;
       font-weight: 700;
-      color: var(--text-primary);
+      font-family: 'Playfair Display', serif;
+      color: #0b2b5c;
+      line-height: 1.2;
     }
-
     .card-tagline {
-      font-size: 12px;
-      font-weight: 300;
-      color: var(--text-muted);
-      letter-spacing: 0.09em;
+      font-size: 0.75rem;
       text-transform: uppercase;
-      margin-top: 2px;
+      letter-spacing: 1.5px;
+      color: #5a687c;
     }
-
-.card-body {
-  padding: 1.3rem 1.5rem 1.5rem;
-  /* Ensures smooth text rendering */
-  -webkit-font-smoothing: antialiased;
-}
-
-.card-body p {
-  /* Using a modern system stack for better performance and look */
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  font-size: 1rem; /* Slightly larger (16px) for better accessibility */
-  line-height: 1.6; /* Reduced slightly from 1.8 for tighter, more cohesive paragraphs */
-  color: var(--text-primary);
-  font-weight: 400; /* Standard weight is usually more readable than 300 */
-  margin-bottom: 1rem;
-}
-
-.card-body strong {
-  font-weight: 600; /* Increased to 600 to provide better contrast against 400 */
-  color: var(--text-highlight, inherit); 
-}
-
-    /* ── VALUES GRID ── */
+    .card-body {
+      padding: 1.5rem 1.8rem 2rem;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #2c3e4e;
+    }
+    .card-body p {
+      margin-bottom: 0.8rem;
+    }
+    /* Core values grid */
     .values-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 1.1rem;
-    }
+    display: grid;
+    /* Reduced minmax to 140px so the 4 pillars can sit 2x2 on smaller cards */
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 1rem;
+}
 
-    .value-pill {
-      background: #f4f6fb;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0.7rem 1rem;
+.value-pill {
+    background: #f8fafc;
+    border-radius: 12px; /* Changed from 60px to 12px for a more 'modern app' look */
+    padding: 0.7rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.2s ease;
+}
+
+.value-pill:hover {
+    background: #ffffff;
+    border-color: #cbd5e1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.value-dot {
+    width: 10px; /* Slightly smaller dot for a cleaner look */
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0; /* Prevents dot from squishing if text is long */
+}
+
+/* Added soft glows to the dots to match your icon gradient style */
+.dot-blue { background: #1e88e5; box-shadow: 0 0 8px rgba(30, 136, 229, 0.3); }
+.dot-green { background: #43a047; box-shadow: 0 0 8px rgba(67, 160, 71, 0.3); }
+.dot-purple { background: #8e44ad; box-shadow: 0 0 8px rgba(142, 68, 173, 0.3); }
+.dot-amber { background: #fb8c00; box-shadow: 0 0 8px rgba(251, 140, 0, 0.3); }
+
+.value-text {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: #334155;
+    letter-spacing: -0.01em;
+}
+    
+    /* ========== BACK TO TOP BUTTON ========== */
+    .top-link {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #0b2b5c;
+      width: 48px;
+      height: 48px;
+      border-radius: 30px;
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: all 0.3s;
+      z-index: 99;
+      text-decoration: none;
+      opacity: 0;
+      visibility: hidden;
     }
-
-    .value-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      flex-shrink: 0;
+    .top-link.show {
+      opacity: 1;
+      visibility: visible;
     }
-
-    .dot-blue   { background: #378add; }
-    .dot-green  { background: #639922; }
-    .dot-purple { background: #7f77dd; }
-    .dot-amber  { background: #ba7517; }
-    .dot-teal   { background: #1d9e75; }
-    .dot-coral  { background: #d85a30; }
-
-    .value-text {
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--text-primary);
+    .top-link:hover {
+      background: #1f5a9e;
+      transform: translateY(-5px);
+      color: white;
     }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--navy-dark);
+    
+    /* ========== FOOTER ========== */
+    .footer-custom {
+      background: #0b1f33;
+      color: #cddcec;
+      padding: 2rem 1rem;
       text-align: center;
-      padding: 1.2rem 1.5rem;
+      font-size: 0.85rem;
+      border-top-left-radius: 32px;
+      border-top-right-radius: 32px;
     }
-
-    footer p {
-      color: var(--gold-soft);
-      font-size: 12.5px;
-      font-weight: 300;
-      letter-spacing: 0.07em;
+    
+    @media (max-width: 600px) {
+      .card-header { padding: 1.2rem 1.2rem 0.5rem; }
+      .card-body { padding: 1.2rem; }
+      .card-label { font-size: 1.3rem; }
+      .values-grid { grid-template-columns: 1fr; }
     }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 500px) {
-      .school-name  { font-size: 20px; }
-      .values-grid  { grid-template-columns: 1fr; }
-      .card-header  { padding: 1rem 1.1rem; }
-      .card-body    { padding: 1rem 1.1rem 1.2rem; }
-    }
-     .login-logo {
-    background-color: rgba(255, 255, 255, 0.9); /* Soft white circle */
-    padding: 10px;
-    border-radius: 50%; /* Keeps it circular like the seal */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-filter: saturate(1.2) brightness(1.1);
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="navbar-inner">
-
-      <a href="#" class="navbar-brand">
-        <div class="navbar-logo">
-          <img src="icons/eusebia.png" alt="Logo" style="width: 18px; height: 18px;">
-        </div>
-        <div class="navbar-title">
-          EPAMNHS
-          <span>DASHBOARD</span>
-        </div>
+<!-- ========== MODERN NAVBAR (public version) ========== -->
+<nav class="navbar navbar-custom">
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    <a class="navbar-brand" href="#">
+      <i class="bi bi-mortarboard-fill me-2"></i> EPAMNHS Portal
+    </a>
+    
+    <!-- Desktop buttons -->
+    <div class="nav-buttons">
+      <a href="login.php" class="btn-nav btn-login">
+        <i class="fas fa-sign-in-alt"></i> Log in
       </a>
+      <a href="resident_registration.php" class="btn-nav btn-register">
+        <i class="fas fa-user-plus"></i> Register
+      </a>
+    </div>
+    
+    <!-- Mobile hamburger -->
+    <button class="hamburger" id="hamburgerBtn">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="login.php" class="btn-nav btn-login"><i class="fas fa-sign-in-alt"></i> Log in</a>
+    <a href="resident_registration.php" class="btn-nav btn-register"><i class="fas fa-user-plus"></i> Register</a>
+  </div>
+</nav>
 
-      <div class="navbar-actions">
-        <a href="login.php" class="btn-login">
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-            <polyline points="10 17 15 12 10 7"/>
-            <line x1="15" y1="12" x2="3" y2="12"/>
+<!-- ========== HERO BANNER with uploadable background ========== -->
+<header class="hero">
+  <img class="hero-bg" id="heroBg" src="icons/eusebia.jpg" alt="School campus">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="seal-ring">
+      <img src="icons/eusebia.png" alt="School Seal">
+    </div>
+    <h1 class="school-name">Eusebia Paz Arroyo MemorialNational High School</h1>
+    <p class="school-sub">Department of Education</p>
+    <div class="divider-gold"></div>
+    <p class="hero-caption">Mission · Vision · Core Values</p>
+  </div>
+</header>
+
+<!-- ========== CONTENT: VISION, MISSION, CORE VALUES ========== -->
+<main class="content">
+  <div class="card-section" data-aos="fade-up">
+    
+    <!-- VISION -->
+    <article class="mv-card">
+      <div class="card-header">
+        <div class="icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#185fa5" stroke-width="1.8">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/>
           </svg>
-          Log in
-        </a>
-        <a href="resident_registration.php" class="btn-register">
-          <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <line x1="19" y1="8" x2="19" y2="14"/>
-            <line x1="22" y1="11" x2="16" y2="11"/>
+        </div>
+        <div>
+          <div class="card-label">Vision</div>
+          <div class="card-tagline">What we aspire to become</div>
+        </div>
+      </div>
+      <div class="card-body">
+        <p>We dream of Filipinos who passionately love their country and whose values and competencies enable them to realize their full potential and contribute meaningfully to building the nation.</p>
+        <p>As a learner-centered public institution, the Department of Education continuously improves itself to better serve its stakeholders.</p>
+      </div>
+    </article>
+    
+    <!-- MISSION -->
+    <article class="mv-card">
+      <div class="card-header">
+        <div class="icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#3b6d11" stroke-width="1.8">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
           </svg>
-          Register
-        </a>
+        </div>
+        <div>
+          <div class="card-label">Mission</div>
+          <div class="card-tagline">What we commit to do</div>
+        </div>
       </div>
-
-      <!-- Mobile hamburger -->
-      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-    </div>
-
-    <!-- Mobile dropdown -->
-    <div class="mobile-menu" id="mobileMenu">
-      <a href="login.php" class="btn-login">
-        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-          <polyline points="10 17 15 12 10 7"/>
-          <line x1="15" y1="12" x2="3" y2="12"/>
-        </svg>
-        Log in
-      </a>
-      <a href="resident_registration.php" class="btn-register">
-        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-          <circle cx="9" cy="7" r="4"/>
-          <line x1="19" y1="8" x2="19" y2="14"/>
-          <line x1="22" y1="11" x2="16" y2="11"/>
-        </svg>
-        Register
-      </a>
-    </div>
-  </nav>
-
-  <!-- HERO BANNER -->
-  <header class="hero">
-    <!-- Replace the src below with your own school photo -->
-    <img
-      class="hero-bg"
-      src="icons/eusebia.jpg"
-      alt="School campus"
-      id="heroBg"
-    />
-    <div class="hero-overlay"></div>
-
-    <div class="hero-content">
-      <div class="seal-ring">
-        <img src="icons/eusebia.png" class="login-logo" alt="Logo">
+      <div class="card-body">
+        <p>To protect and promote the right of every Filipino to quality, equitable, culture-based, and complete basic education where:</p>
+        <p>* Students learn in a child-friendly, gender-sensitive, safe, and motivating environment.<br>
+        * Teachers facilitate learning and constantly nurture every learner.<br>
+        * Administrators and staff ensure an enabling and supportive environment for effective learning.<br>
+        * Family, community, and stakeholders actively engage and share responsibility for developing life-long learners.</p>
       </div>
-      <h1 class="school-name">Eusebia Paz Arroyo National High School</h1>
-      <p class="school-sub">DepEd &middot; Republic of the Philippines</p>
-      <div class="divider-gold"></div>
-      <p class="hero-caption">Mission &middot; Vision &middot; Core Values</p>
+    </article>
+    
+    <!-- CORE VALUES -->
+    <article class="mv-card">
+  <div class="card-header">
+    <div class="icon-badge">
+      <!-- Changed to a 'Shield' icon for a more institutional feel -->
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+      </svg>
     </div>
-
-
-  </header>
-<br><br><br><br>
-  <!-- MAIN CONTENT -->
-  <main class="content">
-    <div class="card-section">
-
-      <!-- VISION -->
-      <article class="mv-card">
-        <div class="card-header">
-          <div class="icon-badge vision">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#185fa5" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="3"/>
-              <path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7-10-7-10-7z"/>
-            </svg>
-          </div>
-          <div>
-            <p class="card-label">Vision</p>
-            <p class="card-tagline">What we aspire to become</p>
-          </div>
-        </div>
-        <div class="card-body">
-          <p>We dream of Filipinos 
-who passionately love their country 
-and whose values and competencies  
-enable them to realize their full potential 
-and contribute meaningfully to building the nation.
-<br>
-As a learner-centered public institution, 
-the Department of Education 
-continuously improves itself 
-to better serve its stakeholders</p>
-        </div>
-      </article>
-
-      <!-- MISSION -->
-      <article class="mv-card">
-        <div class="card-header">
-          <div class="icon-badge mission">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#3b6d11" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-              <path d="M2 17l10 5 10-5"/>
-              <path d="M2 12l10 5 10-5"/>
-            </svg>
-          </div>
-          <div>
-            <p class="card-label">Mission</p>
-            <p class="card-tagline">What we commit to do</p>
-          </div>
-        </div>
-        <div class="card-body">
-          <p>To protect and promote the right of every Filipino to quality, equitable, culture-based, and complete basic education where: <br>
--Students learn in a child-friendly, gender-sensitive, safe, and motivating environment.
-<br>
--Teachers facilitate learning and constantly nurture every learner.
-<br>
--Administrators and staff, as stewards of the institution, ensure an enabling and supportive environment for effective learning to happen.
-<br>
--Family, community, and other stakeholders are actively engaged and share responsibility for developing life-long learners.</p>
-        </div>
-      </article>
-
-      <!-- CORE VALUES -->
-      <article class="mv-card">
-        <div class="card-header">
-          <div class="icon-badge core">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#534ab7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            </svg>
-          </div>
-          <div>
-            <p class="card-label">Core Values</p>
-            <p class="card-tagline">Principles we live by</p>
-          </div>
-        </div>
-        <div class="card-body">
-          <div class="values-grid">
-            <div class="value-pill">
-              <div class="value-dot dot-blue"></div>
-              <span class="value-text">Maka-Diyos</span>
-            </div>
-            <div class="value-pill">
-              <div class="value-dot dot-green"></div>
-              <span class="value-text">Maka-tao</span>
-            </div>
-            <div class="value-pill">
-              <div class="value-dot dot-purple"></div>
-              <span class="value-text">Makakalikasan</span>
-            </div>
-            <div class="value-pill">
-              <div class="value-dot dot-amber"></div>
-              <span class="value-text">Makabansa</span>
-            </div>
-            
-            
-          </div>
-        </div>
-      </article>
-
+    <div class="header-text">
+      <h3 class="card-label">Core Values</h3>
+      <p class="card-tagline">Principles we live by</p>
     </div>
-  </main>
+  </div>
+  <div class="card-body">
+    <div class="values-grid">
+      <div class="value-pill"><span class="value-dot dot-blue"></span>Maka-Diyos</div>
+      <div class="value-pill"><span class="value-dot dot-green"></span>Maka-tao</div>
+      <div class="value-pill"><span class="value-dot dot-purple"></span>Makakalikasan</div>
+      <div class="value-pill"><span class="value-dot dot-amber"></span>Makabansa</div>
+    </div>
+  </div>
+</article>
+    
+  </div>
+</main>
 
-  <!-- FOOTER -->
-  <footer>
-    <p>Eusebia Paz Arroyo National High School &middot; Department of Education</p>
-  </footer>
-  <script>
-    const btn = document.getElementById('hamburgerBtn');
-    const menu = document.getElementById('mobileMenu');
-    btn.addEventListener('click', () => {
-      menu.classList.toggle('open');
-    });
+<!-- Back to Top Button -->
+<a href="#" class="top-link" id="backToTopBtn">
+  <i class="fas fa-arrow-up"></i>
+</a>
 
-    // Photo uploader
-    document.getElementById('photoUpload').addEventListener('change', function () {
-      const file = this.files[0];
-      if (!file) return;
+<!-- Footer -->
+<footer class="footer-custom">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <i class="fas fa-school me-2"></i> Eusebia Paz Arroyo Memorial National High School 
+        <br><small> <?= date('Y') ?> EPAMNHS. All rights reserved.</small>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init({ duration: 800, once: true, offset: 40 });
+  
+  // Mobile menu toggle
+  const hamburger = document.getElementById('hamburgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('show');
+    if (mobileMenu.style.display === 'flex') mobileMenu.style.display = 'none';
+    else mobileMenu.style.display = 'flex';
+  });
+  // Initially hidden
+  mobileMenu.style.display = 'none';
+  
+  // Back to top button
+  const backBtn = document.getElementById('backToTopBtn');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) backBtn.classList.add('show');
+    else backBtn.classList.remove('show');
+  });
+  backBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+  
+  // Background image upload
+  const photoInput = document.getElementById('photoUpload');
+  const heroImg = document.getElementById('heroBg');
+  document.querySelector('.photo-hint').addEventListener('click', () => photoInput.click());
+  photoInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
-        document.getElementById('heroBg').src = e.target.result;
-      };
+      reader.onload = (event) => { heroImg.src = event.target.result; };
       reader.readAsDataURL(file);
-    });
-  </script>
-
+    }
+  });
+</script>
 </body>
 </html>

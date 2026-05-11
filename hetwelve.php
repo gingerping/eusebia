@@ -5,6 +5,7 @@
    require('classes/resident.class.php');
    $userdetails = $residenteusebia->get_userdata();
    $residenteusebia->validate_admin();
+   $eusebia->delete_twelve();
    $view = $residenteusebia->view_twelve_he();
    
 ?>
@@ -92,8 +93,8 @@
                             <i class="fa fa-eye"></i> View
                         </button>
                         <form action="" method="post" style="display:inline;">
-                            <input type="hidden" name="id_eleven" value="<?= $view['id_eleven'];?>">
-                            <button class="btn btn-danger" type="submit" style="width: 90px; font-size: 17px; border-radius:30px;" name="delete_eleven"> Archive </button>
+                            <input type="hidden" name="id_twelve" value="<?= $view['id_twelve'];?>">
+                            <button class="btn btn-danger" type="submit" style="width: 90px; font-size: 17px; border-radius:30px;" name="delete_twelve"> Archive </button>
                         </form>
                     </td>
                 </tr>
@@ -157,8 +158,8 @@
                 </button>
                 
                 <form action="" method="post" style="display:inline;">
-                    <input type="hidden" name="id_eleven" value="<?= $row['id_eleven'];?>">
-                    <button class="btn btn-danger" type="submit" name="delete_eleven"> Archive </button>
+                    <input type="hidden" name="id_twelve" value="<?= $row['id_twelve'];?>">
+                    <button class="btn btn-danger" type="submit" name="delete_twelve"> Archive </button>
                 </form>
 
                 <div class="modal fade" id="viewModal<?= $row['id_resident'] ?>" tabindex="-1" role="dialog" aria-hidden="true">

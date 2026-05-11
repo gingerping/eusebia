@@ -18,6 +18,35 @@
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
+    <style>
+        /* Sidebar - Resident Color Theme (#0b2b5c / #0f3b7a) */
+        #accordionSidebar {
+            background: linear-gradient(135deg, #0b2b5c 0%, #0f3b7a 100%) !important;
+        }
+        #accordionSidebar .sidebar-brand {
+            color: #fff !important;
+        }
+        #accordionSidebar .nav-item .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+        #accordionSidebar .nav-item .nav-link:hover,
+        #accordionSidebar .nav-item.active .nav-link {
+            color: #fff !important;
+            background: rgba(255, 255, 255, 0.12) !important;
+        }
+        #accordionSidebar .sidebar-heading {
+            color: rgba(255, 255, 255, 0.5) !important;
+        }
+        #accordionSidebar hr.sidebar-divider {
+            border-color: rgba(255, 255, 255, 0.15) !important;
+        }
+        #sidebarToggle {
+            background: rgba(255, 255, 255, 0.2) !important;
+        }
+        #sidebarToggle:hover {
+            background: rgba(255, 255, 255, 0.35) !important;
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -26,7 +55,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+        <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background: linear-gradient(135deg, #0b2b5c 0%, #0f3b7a 100%)!important;">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="admn_dashboard.php">

@@ -1,204 +1,286 @@
 <?php 
-    error_reporting(E_ALL ^ E_WARNING);
-    
-    if(!isset($_SESSION)) {
-        $showdate = date("Y-m-d");
-        date_default_timezone_set('Asia/Manila');
-        $showtime = date("h:i:a");
-        $_SESSION['storedate'] = $showdate;
-        $_SESSION['storetime'] = $showdate;
-        session_start();
-    }
+error_reporting(E_ALL ^ E_WARNING);
 
-    //include('autoloader.php');
-    require('classes/main.class.php');
-    $eusebia->login();
+if(!isset($_SESSION)) {
+    $showdate = date("Y-m-d");
+    date_default_timezone_set('Asia/Manila');
+    $showtime = date("h:i:a");
+    $_SESSION['storedate'] = $showdate;
+    $_SESSION['storetime'] = $showdate;
+    session_start();
+}
 
-   
+require('classes/main.class.php');
+$eusebia->login();
 ?>
 
-<!DOCTYPE html> 
-<html> 
-<head> 
-    <title>Eusebia Paz Arroyo National High School</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"> 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>EPANHS | Login</title>
 
-    <style> 
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('icons/eusebia.jpg');
+            font-family: 'Inter', sans-serif;
+                        background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('icons/eusebia.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
             min-height: 100vh;
-            margin: 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: white;
+            padding: 2rem 1rem;
         }
 
-        .container-fluid {
+        /* Login Card Container */
+        .login-container {
+            max-width: 460px;
             width: 100%;
-            max-width: 450px;
-            padding: 20px;
+            margin: 0 auto;
         }
 
-        /* Header Styling */
         .header-content {
             text-align: center;
-            margin-bottom: 25px;
+            margin-bottom: 2rem;
         }
 
         .login-logo {
-    background-color: rgba(255, 255, 255, 0.9); /* Soft white circle */
-    padding: 10px;
-    border-radius: 50%; /* Keeps it circular like the seal */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-filter: saturate(1.2) brightness(1.1);
+            width: 90px;
+            height: 90px;
+            background: white;
+            border-radius: 50%;
+            padding: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+            transition: transform 0.2s;
+        }
+        .login-logo:hover {
+            transform: scale(1.02);
+        }
 
         .system-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.8rem;
+            background: #ffffff;
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.25rem;
         }
 
         .sub-title {
+            color: #ffffff;
             font-size: 0.9rem;
-            opacity: 0.9;
+            letter-spacing: 0.5px;
         }
 
-        /* The Login Card */
-        .card.main-card {
-            background: rgba(255, 255, 255, 0.95);
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-            color: #333; /* Dark text inside the white card */
-        }
-
-        .card-body {
-            padding: 30px;
-        }
-
-        .input-container {
-            display: flex;
-            width: 100%;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
+        /* Modern Card */
+        .login-card {
             background: white;
+            border: none;
+            border-radius: 36px;
+            box-shadow: 0 25px 45px -12px rgba(0,0,0,0.25);
+            overflow: hidden;
+            transition: transform 0.2s;
         }
 
-        .icon {
-            padding: 12px;
-            background: #1e88e5;
-            color: white;
-            min-width: 45px;
+        .login-card .card-body {
+            padding: 2rem 1.8rem;
+        }
+
+        /* Form fields */
+        .form-label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #1f3a5f;
+            margin-bottom: 0.5rem;
+        }
+
+        .input-group-custom {
             display: flex;
             align-items: center;
-            justify-content: center;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            transition: all 0.2s;
+            margin-bottom: 1.2rem;
         }
-
+        .input-group-custom:focus-within {
+            border-color: #2a6f9c;
+            box-shadow: 0 0 0 3px rgba(42,111,156,0.15);
+            background: white;
+        }
+        .input-icon {
+            padding: 0.75rem 0 0.75rem 1.2rem;
+            color: #2a6f9c;
+            font-size: 1rem;
+        }
         .input-field {
             width: 100%;
-            padding: 10px;
+            padding: 0.75rem 1rem 0.75rem 0.5rem;
             border: none;
+            background: transparent;
             outline: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+        .input-field::placeholder {
+            color: #a0afc0;
+            font-weight: 400;
         }
 
-        .btn-primary {
-            background-color: #1e88e5;
+        /* Checkbox */
+        .form-switch-custom {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+        .form-switch-custom .form-check-input {
+            width: 2rem;
+            cursor: pointer;
+            background-color: #cbd5e1;
+            border-color: #94a3b8;
+        }
+        .form-switch-custom .form-check-input:checked {
+            background-color: #2a6f9c;
+            border-color: #2a6f9c;
+        }
+        .form-switch-custom label {
+            font-size: 0.85rem;
+            color: #334155;
+            cursor: pointer;
+        }
+
+        /* Buttons */
+        .btn-login {
+            background: linear-gradient(135deg, #0b2b5c, #1f5a9e);
             border: none;
-            padding: 12px;
-            width: 100%;
-            font-weight: bold;
-            border-radius: 8px;
-        }
-
-        .btn-success {
-            background-color: #2e7d32;
-            border: none;
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-        }
-
-        .registration-section {
-            text-align: center;
-            font-size: 0.9rem;
-        }
-        
-        label {
+            border-radius: 40px;
+            padding: 0.8rem;
             font-weight: 600;
-            margin-bottom: 5px;
+            font-size: 1rem;
+            width: 100%;
+            color: white;
+            transition: all 0.2s;
+            margin-bottom: 1.2rem;
+        }
+        .btn-login:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #1f3a6b, #2a6f9c);
+            box-shadow: 0 8px 18px rgba(11,43,92,0.25);
+        }
+
+        .btn-register {
+            background: #eef2ff;
+            border: 1px solid #cbd5e1;
+            border-radius: 40px;
+            padding: 0.7rem;
+            font-weight: 600;
             font-size: 0.9rem;
+            width: 100%;
+            color: #1f3a5f;
+            transition: all 0.2s;
+        }
+        .btn-register:hover {
+            background: #e2e8f0;
+            transform: translateY(-1px);
+        }
+
+        hr {
+            margin: 1.5rem 0;
+            opacity: 0.3;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 1.2rem;
+            font-size: 0.75rem;
+            color: #5a687c;
+        }
+
+        @media (max-width: 500px) {
+            .login-card .card-body {
+                padding: 1.5rem;
+            }
+            .system-title {
+                font-size: 1.4rem;
+            }
         }
     </style>
 </head>
-
 <body>
-    
-    <div class="container-fluid"> 
-        <div class="header-content">
-            <img src="icons/eusebia.png" class="login-logo" alt="Logo">
-            <div class="header-text">
-                <h2 class="system-title">Eusebia Paz Arroyo National High School</h2>
-                <p class="sub-title">Buluang, Baao</p>
-            </div>
-        </div>
 
-        <div class="card main-card"> 
-            <div class="card-body"> 
-                <form method="post"> 
-                    <label>Email</label>
-                    <div class="input-container">
-                        <i class="fa fa-envelope icon"></i>
-                        <input class="input-field" type="text" placeholder="Enter Email or Phone number" name="login_identity" required>
-                    </div>
-
-                    <label>Password</label>
-                    <div class="input-container">
-                        <i class="fa fa-key icon"></i>
-                        <input class="input-field" type="password" placeholder="Enter Password" id="myInput" name="password" required>
-                    </div>
-
-                    <div class="form-check form-switch mb-3">
-                        <input class="form-check-input" type="checkbox" onclick="myFunction()" id="switch1">
-                        <label class="form-check-label" for="switch1">Show Password</label>
-                    </div>
-                    
-                    <button class="btn btn-primary" type="submit" name="login">Log-in</button>
-                </form>
-
-                <hr>
-
-                <div class="registration-section"> 
-                    <p class="mb-0"><strong>Don't have an account?</strong></p> 
-                    <br>
-                    <button class="btn btn-success" onclick="trying();">Create Account</button> 
-                </div>
-            </div>
-        </div>
+<div class="login-container">
+    <div class="header-content">
+        <img src="icons/eusebia.png" class="login-logo" alt="School Seal">
+        <h2 class="system-title">Eusebia Paz Arroyo Memorial National High School</h2>
+        <p class="sub-title">Buluang, Baao, Camarines Sur</p>
     </div>
 
-    <script>
-        function myFunction() {
-            var x = document.getElementById("myInput");
-            x.type = (x.type === "password") ? "text" : "password";
-        }
+    <div class="card login-card">
+        <div class="card-body">
+            <form method="post">
+                <div class="form-label">Email or Phone</div>
+                <div class="input-group-custom">
+                    <div class="input-icon"><i class="fas fa-envelope"></i></div>
+                    <input class="input-field" type="text" placeholder="your.email@example.com" name="login_identity" required autofocus>
+                </div>
 
-        function trying() {
-            window.location.href = "resident_registration.php";
-        }
-    </script>
+                <div class="form-label">Password</div>
+                <div class="input-group-custom">
+                    <div class="input-icon"><i class="fas fa-key"></i></div>
+                    <input class="input-field" type="password" placeholder="••••••••" id="myInput" name="password" required>
+                </div>
+
+                <div class="form-switch-custom">
+                    <input class="form-check-input" type="checkbox" onclick="myFunction()" id="showPasswordSwitch">
+                    <label class="form-check-label" for="showPasswordSwitch">Show password</label>
+                </div>
+
+                <button class="btn btn-login" type="submit" name="login">
+                    <i class="fas fa-sign-in-alt me-2"></i> Log in
+                </button>
+            </form>
+
+            <hr>
+
+            <div class="text-center mb-3">
+                <p class="mb-2 fw-semibold">Don't have an account yet?</p>
+                <button class="btn btn-register" onclick="window.location.href='resident_registration.php';">
+                    <i class="fas fa-user-plus me-2"></i> Create Account
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("myInput");
+        x.type = (x.type === "password") ? "text" : "password";
+    }
+</script>
+
 </body>
 </html>

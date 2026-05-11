@@ -1,442 +1,471 @@
 <?php 
-    error_reporting(E_ALL ^ E_WARNING);
-    include('classes/resident.class.php');
-    
-    // 1. Get user data first so we have the ID
-    $userdetails = $eusebia->get_userdata();
-    $current_user_id = $userdetails['id_resident']; // Store the ID for easy use
+error_reporting(E_ALL ^ E_WARNING);
+include('classes/resident.class.php');
 
-    $dt = new DateTime("now", new DateTimeZone('Asia/Manila'));
-    $tm = new DateTime("now", new DateTimeZone('Asia/Manila'));
-    $cdate = $dt->format('Y/m/d');
-    $ctime = $tm->format('H');
+// Get user data
+$userdetails = $eusebia->get_userdata();
+$current_user_id = $userdetails['id_resident'];
+
+// Date and time for display
+$dt = new DateTime("now", new DateTimeZone('Asia/Manila'));
+$current_date = $dt->format('l, F j, Y');
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>EUSEBIA PAZ ARROYO NHS | Student Portal</title>
+    
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- AOS Library for scroll animations (optional) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+    font-family: 'Inter', sans-serif;
+    /* Updated background for better performance and fixed position */
+    background: linear-gradient(145deg, #f8faff 0%, #f0f4fe 100%);
+    background-attachment: fixed; /* Keeps the gradient from stretching if the page is long */
+    
+    color: #1a2c3e;
+    scroll-behavior: smooth;
 
+    /* Text rendering improvements */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    
+    /* Prevents horizontal scroll on small screens */
+    overflow-x: hidden; 
+    margin: 0;
+}
+/* Bold headings with tight letter-spacing */
+h1, h2, h3, .fw-bold {
+    font-weight: 700;
+    letter-spacing: -0.022em;
+}
 
-<script> 
-    function logout() {
-    window.location.href = "logout.php";
-    }
-    function profile() {
-    window.location.href = "resident_profile.php";
-    }
+/* Medium weight for navigation/sub-labels */
+.nav-link, .label-medium {
+    font-weight: 500;
+    letter-spacing: -0.011em;
+}
+
+/* Slightly more line-height for body text to improve readability */
+p, .card-text {
+    line-height: 1.6;
+    font-weight: 400;
+}
+
+        /* Custom Navbar */
+        .navbar-custom {
+            background: linear-gradient(135deg, #0b2b5c 0%, #0f3b7a 100%);
+            backdrop-filter: blur(8px);
+            padding: 0.9rem 2rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+        .navbar-brand {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: -0.3px;
+            color: white !important;
+            transition: transform 0.2s;
+        }
+        .navbar-brand:hover {
+            transform: scale(1.02);
+        }
+        .dropdown-toggle-custom {
+            background: rgba(255,255,255,0.12);
+            backdrop-filter: blur(4px);
+            border-radius: 40px;
+            padding: 8px 20px;
+            border: 1px solid rgba(255,255,255,0.25);
+            color: white !important;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .dropdown-toggle-custom:hover {
+            background: rgba(255,255,255,0.25);
+            border-color: rgba(255,255,255,0.5);
+        }
+        .dropdown-menu-custom {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+            padding: 12px 6px;
+            min-width: 210px;
+            background: #ffffffdd;
+            backdrop-filter: blur(12px);
+        }
+        .dropdown-item-custom {
+            border-radius: 16px;
+            padding: 10px 18px;
+            font-weight: 500;
+            transition: all 0.2s;
+            color: #0b2b5c;
+        }
+        .dropdown-item-custom i {
+            width: 28px;
+            margin-right: 6px;
+        }
+        .dropdown-item-custom:hover {
+            background: #eef2ff;
+            transform: translateX(5px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            text-align: center;
+            padding: 3rem 1rem 2rem;
+            background: radial-gradient(circle at 10% 30%, rgba(11,43,92,0.04), transparent);
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            font-size: 2.8rem;
+            background: linear-gradient(135deg, #0b2b5c, #2a6f9c);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.75rem;
+        }
+        .welcome-badge {
+            background: #ffffffcc;
+            backdrop-filter: blur(4px);
+            border-radius: 80px;
+            display: inline-block;
+            padding: 0.3rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #0b2b5c;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .current-date {
+            font-size: 0.9rem;
+            color: #4a627a;
+            margin-top: 0.75rem;
+        }
+
+        /* Grade Cards Grid */
+        .grade-section {
+            padding: 2rem 1rem 4rem;
+        }
+        .grade-card {
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(2px);
+            border-radius: 36px;
+            border: none;
+            box-shadow: 0 18px 35px -12px rgba(0,0,0,0.12);
+            transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            cursor: pointer;
+            overflow: hidden;
+            text-align: center;
+            padding: 2rem 1rem;
+            position: relative;
+            z-index: 1;
+        }
+        .grade-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(145deg, #ffffff, #f5f9ff);
+            z-index: -1;
+            transition: opacity 0.3s;
+        }
+        .grade-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 28px 40px -18px rgba(0,0,0,0.25);
+        }
+        .grade-icon {
+    font-size: 1.8rem;
+    margin-bottom: 1.2rem;
+    display: inline-block;
+    
+    /* Improved Gradient Depth */
+    background: linear-gradient(145deg, #2a65ad, #0b2b5c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Better Safari support */
+    background-clip: text;
+    
+    /* Adds depth since the icon is transparent */
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
+    
+    /* Smoother transition */
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+}
+.grade-icon:hover {
+    transform: translateY(-5px) scale(1.05);
+    filter: drop-shadow(0 8px 12px rgba(31, 78, 140, 0.2));
+}
+        .grade-card:hover .grade-icon {
+            transform: scale(1.08);
+        }
+        .grade-title {
+            font-weight: 800;
+            font-size: 1.9rem;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #1f3a5f, #1e5a88);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.3rem;
+        }
+        .grade-sub {
+            font-size: 0.85rem;
+            color: #5e7e9e;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-link {
+            text-decoration: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .navbar-brand {
+                font-size: 1rem;
+            }
+            .hero-title {
+                font-size: 2rem;
+            }
+            .grade-title {
+                font-size: 1.5rem;
+            }
+            .grade-section {
+                padding: 1rem 1rem 2rem;
+            }
+        }
+
+        /* Back to top button */
+        .top-link {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #0b2b5c;
+            width: 50px;
+            height: 50px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            z-index: 99;
+            text-decoration: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: 0.2s ease;
+        }
+        .top-link.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        .top-link:hover {
+            background: #1f5a9e;
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        .footer-custom {
+            background: #0b1f33;
+            color: #cddcec;
+            padding: 2rem 1rem;
+            text-align: center;
+            font-size: 0.9rem;
+            border-top-left-radius: 32px;
+            border-top-right-radius: 32px;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Modern Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <i class="bi bi-mortarboard-fill me-2"></i> EPAMHS Portal
+        </a>
+        <div class="dropdown ms-auto">
+            <button class="btn dropdown-toggle-custom dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-user-circle me-2"></i> <?= htmlspecialchars($userdetails['surname'] . ', ' . $userdetails['firstname']); ?>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-custom dropdown-menu-end" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item dropdown-item-custom" href="resident_profile.php?id_resident=<?= $current_user_id ?>"><i class="fas fa-id-card"></i> My Profile</a></li>
+                <li><a class="dropdown-item dropdown-item-custom" href="resident_changepass.php?id_resident=<?= $current_user_id ?>"><i class="fas fa-key"></i> Change Password</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item dropdown-item-custom" href="logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero / Welcome Section -->
+<div class="hero-section">
+    <div class="container">
+        <div class="welcome-badge mb-3">
+            <i class="fas fa-graduation-cap me-2"></i> Student Dashboard
+        </div>
+        <h1 class="hero-title">Choose your journey,<br> <span style="background: linear-gradient(135deg,#1e5a88,#0f3b7a); -webkit-background-clip:text; background-clip:text; color:transparent;"><?= htmlspecialchars($userdetails['surname'] . ', ' . $userdetails['firstname']); ?></span></h1>
+        <p class="mt-3 text-secondary" style="max-width: 550px; margin: 0 auto;">select your grade level.</p>
+        <div class="current-date">
+            <i class="far fa-calendar-alt me-1"></i> <?= $current_date ?>
+        </div>
+    </div>
+</div>
+
+<!-- Grade Level Cards Grid -->
+<div class="grade-section">
+    <div class="container">
+        <div class="row g-5 justify-content-center">
+            <!-- Grade 7 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="50">
+                <a href="grade7.php?id_resident=<?= $current_user_id ?>" class="card-link">
+                    <div class="grade-card">
+                        <div class="grade-icon">GRADE 7</div>
+                        <div class="grade-title"></div>
+                        <div class="grade-sub">Junior High • First Year</div>
+                        <hr class="my-3 w-25 mx-auto" style="opacity:0.3">
+                        <span class="badge bg-light text-dark rounded-pill px-3 py-2">Enter <i class="fas fa-arrow-right ms-1"></i></span>
+                    </div>
+                </a>
+            </div>
+            <!-- Grade 8 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <a href="grade8.php?id_resident=<?= $current_user_id ?>" class="card-link">
+                    <div class="grade-card">
+                        <div class="grade-icon">GRADE 8</div>
+                        <div class="grade-title"></div>
+                        <div class="grade-sub">Junior High • Second Year</div>
+                        <hr class="my-3 w-25 mx-auto" style="opacity:0.3">
+                        <span class="badge bg-light text-dark rounded-pill px-3 py-2">Explore <i class="fas fa-arrow-right ms-1"></i></span>
+                    </div>
+                </a>
+            </div>
+            <!-- Grade 9 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="150">
+                <a href="grade9.php?id_resident=<?= $current_user_id ?>" class="card-link">
+                    <div class="grade-card">
+                        <div class="grade-icon">GRADE 9</div>
+                        <div class="grade-title"></div>
+                        <div class="grade-sub">Junior High • Third Year</div>
+                        <hr class="my-3 w-25 mx-auto" style="opacity:0.3">
+                        <span class="badge bg-light text-dark rounded-pill px-3 py-2">Continue <i class="fas fa-arrow-right ms-1"></i></span>
+                    </div>
+                </a>
+            </div>
+            <!-- Grade 10 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <a href="grade10.php?id_resident=<?= $current_user_id ?>" class="card-link">
+                    <div class="grade-card">
+                        <div class="grade-icon">GRADE 10</div>
+                        <div class="grade-title"></div>
+                        <div class="grade-sub">Junior High • Fourth Year</div>
+                        <hr class="my-3 w-25 mx-auto" style="opacity:0.3">
+                        <span class="badge bg-light text-dark rounded-pill px-3 py-2">Advance <i class="fas fa-arrow-right ms-1"></i></span>
+                    </div>
+                </a>
+            </div>
+            <!-- Grade 11 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="250">
+                <a href="grade11.php?id_resident=<?= $current_user_id ?>" class="card-link">
+                    <div class="grade-card">
+                        <div class="grade-icon">GRADE 11</div>
+                        <div class="grade-title"></div>
+                        <div class="grade-sub">Senior High • Grade 11</div>
+                        <hr class="my-3 w-25 mx-auto" style="opacity:0.3">
+                        <span class="badge bg-light text-dark rounded-pill px-3 py-2">Level Up <i class="fas fa-arrow-right ms-1"></i></span>
+                    </div>
+                </a>
+            </div>
+            <!-- Grade 12 -->
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <a href="grade12.php?id_resident=<?= $current_user_id ?>" class="card-link">
+                    <div class="grade-card">
+                        <div class="grade-icon">GRADE 12</div>
+                        <div class="grade-title"></div>
+                        <div class="grade-sub">Senior High • Grade 12</div>
+                        <hr class="my-3 w-25 mx-auto" style="opacity:0.3">
+                        <span class="badge bg-light text-dark rounded-pill px-3 py-2">Graduation Track <i class="fas fa-arrow-right ms-1"></i></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Back to Top Button -->
+<a href="#" class="top-link" id="backToTopBtn" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+</a>
+
+<!-- Footer -->
+<footer class="footer-custom">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-3 mb-md-0">
+                <i class="fas fa-school me-2"></i> Eusebia Paz Arroyo  Memorial National High School<br>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <p class="mb-0"> <?= date('Y') ?> EPAMHS Portal. All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Initialize AOS scroll animations
+    AOS.init({
+        duration: 800,
+        once: true,
+        offset: 20,
+    });
+
+    // Back to top button visibility + smooth scroll
+    const backBtn = document.getElementById('backToTopBtn');
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            backBtn.classList.add('show');
+        } else {
+            backBtn.classList.remove('show');
+        }
+    });
+    backBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Tooltip initialization (if any)
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
 </script>
 
-
-<!DOCTYPE html> 
-<html>
-
-    <head> 
-    <title> EUSEBIA PAZ ARROYO NATIONAL HIGH SCHOOL </title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-        <!-- responsive tags for screen compatibility -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- custom css --> 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> 
-        <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Serif+4:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
-
-        
-
-    <style>
-
-    /* Navbar Buttons */
-
-  .service-card {
-    transition: all 0.3s ease;
-    border-radius: 15px;
-  }
-
-  .service-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
-  }
-
-  .icon-box {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 12px;
-    font-size: 1.8rem;
-  }
-
-  /* Soft Background Colors */
-  .bg-primary-light { background-color: #e7f1ff; }
-  .bg-success-light { background-color: #eafaf1; }
-  .bg-warning-light { background-color: #fef9e7; }
-  
-    .btn1 {
-    border-radius: 20px;
-    border: none; /* Remove borders */
-    color: white; /* White text */
-    font-size: 16px; /* Set a font size */
-    cursor: pointer; /* Mouse pointer on hover */
-    margin-left: 23%;
-    padding: 12px 22px;
-    }
-
-    .btn2 {
-    border-radius: 20px;
-    border: none; /* Remove borders */
-    color: white; /* White text */
-    font-size: 16px; /* Set a font size */
-    cursor: pointer; /* Mouse pointer on hover */
-    padding: 12px 22px;
-    margin-left: .1%;
-    }
-
-    .btn3 {
-    border-radius: 20px;
-    border: none; /* Remove borders */
-    color: white; /* White text */
-    font-size: 16px; /* Set a font size */
-    cursor: pointer; /* Mouse pointer on hover */
-    padding: 12px 22px;
-    margin-left: .1%;
-    }
-
-
-    .top-link {
-    transition: all 0.25s ease-in-out;
-    position: fixed;
-    bottom: 0;
-    right: 0;
-    display: inline-flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    margin: 0 3em 3em 0;
-    border-radius: 50%;
-    padding: 0.25em;
-    width: 80px;
-    height: 80px;
-    background-color: #3661D5;
-    }
-    .top-link.show {
-    visibility: visible;
-    opacity: 1;
-    }
-    .top-link.hide {
-    visibility: hidden;
-    opacity: 0;
-    }
-    .top-link svg {
-    fill: white;
-    width: 24px;
-    height: 12px;
-}
-    .screen-reader-text {
-    position: absolute;
-    clip-path: inset(50%);
-    margin: -1px;
-    border: 0;
-    padding: 0;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    word-wrap: normal !important;
-    clip: rect(1px, 1px, 1px, 1px);
-    }
-    .screen-reader-text:focus {
-    display: block;
-    top: 5px;
-    left: 5px;
-    z-index: 100000;
-    clip-path: none;
-    background-color: #eee;
-    padding: 15px 23px 14px;
-    width: auto;
-    height: auto;
-    text-decoration: none;
-    line-height: normal;
-    color: #444;
-    font-size: 1em;
-    clip: auto !important;
-    }
-
-
-    /* Footer Style */
-    
-    .footerlinks{
-        color:white;
-        }
-    .shfooter .collapse {
-        display: inherit;
-    }
-        @media (max-width:767px) {
-    .shfooter ul {
-            margin-bottom: 0;
-    }
-
-    .shfooter .collapse {
-            display: none;
-    }
-
-    .shfooter .collapse.show {
-            display: block;
-    }
-
-    .shfooter .title .fa-angle-up,
-    .shfooter .title[aria-expanded=true] .fa-angle-down {
-            display: none;
-    }
-
-    .shfooter .title[aria-expanded=true] .fa-angle-up {
-            display: block;
-    }
-
-    .shfooter .navbar-toggler {
-            display: inline-block;
-            padding: 0;
-    }
-
-    }
-
-    .resize {
-        text-align: center;
-    }
-    .resize {
-        margin-top: 3rem;
-        font-size: 1.25rem;
-    }
-    /*RESIZESCREEN ANIMATION*/
-    .fa-angle-double-right {
-        animation: rightanime 1s linear infinite;
-    }
-
-    .fa-angle-double-left {
-        animation: leftanime 1s linear infinite;
-    }
-    @keyframes rightanime {
-        50% {
-            transform: translateX(10px);
-            opacity: 0.5;
-    }
-        100% {
-            transform: translateX(10px);
-            opacity: 0;
-    }
-    }
-    @keyframes leftanime {
-        50% {
-            transform: translateX(-10px);
-            opacity: 0.5;
-    }
-        100% {
-            transform: translateX(-10px);
-            opacity: 0;
-    }
-    }
-
-    /* Contact Chip */
-
-    .chip {
-    display: inline-block;
-    padding: 0 25px;
-    height: 50px;
-    line-height: 50px;
-    border-radius: 25px;
-    background-color: #2C54C1;
-    margin-top: 5px;
-    }
-
-    .chip img {
-    float: left;
-    margin: 0 10px 0 -25px;
-    height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    }
-
-
-    </style>
-    <body> 
-
-        <!-- Back-to-Top and Back Button -->
-
-        <a data-toggle="tooltip" title="Back-To-Top" class="top-link hide" href="" id="js-top">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6"><path d="M12 6H0l6-6z"/></svg>
-            <span class="screen-reader-text">Back to top</span>
-        </a>
-
-        <!-- Eto yung navbar -->
-
-        <nav class="navbar navbar-dark bg-primary sticky-top">
-            <a class="navbar-brand" href="resident_homepage.php">EUSEBIA PAZ ARROYO NATIONAL HIGH SCHOOL</a>
-            
-           
-           <div class="dropdown ml-auto">
-                <button title="Your Account" class="btn btn-primary dropdown-toggle" style="margin-right: 2px;" type="button" data-toggle="dropdown"><?= $userdetails['surname'];?>, <?= $userdetails['firstname'];?>
-                    <span class="caret" style="margin-left: 2px;"></span>
-                </button>
-                <ul class="dropdown-menu" style="width: 175px;" >
-                    <a class="btn" href="resident_profile.php?id_resident=<?= $userdetails['id_resident'];?>"> <i class="fas fa-user"> &nbsp; </i>Personal Profile  </a>
-                    <a class="btn" href="resident_changepass.php?id_resident=<?= $userdetails['id_resident'];?>"> <i class="fas fa-lock" >&nbsp;</i> Change Password  </a>
-                    <a class="btn" href="logout.php"> <i class="fas fa-sign-out-alt">&nbsp;</i> Logout  </a>
-                </ul>
-            </div>
-        </nav>
-<br> <br> <br><br>
-
-  
-
-        <div id="down1"></div>
-
-        <br>
-
-        <section class="heading-section"> 
-            <div class="container text-center"> 
-                <div class="row"> 
-                    <div class="col"> 
-                        
-                        <br>
-                        <br>
-
-                        <div class="header"> 
-                            <h2> Welcome to EUSEBIA PAZ ARROYO NATIONAL HIGH SCHOOL</h2><bR>
-                            <h3> You may select your grade level below </h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <br>
-            <br>
-
-            <div class="container"> 
-                
-                <div class="row">
-                    <div class="col"> 
-                        <a href="grade7.php ?id_resident=<?= $userdetails['id_resident'];?>">
-                            <div class="zoom1"> 
-                                <div class="card"> 
-                                    <div class="card-body text-center">
-                                        <i class="bi bi-file-earmark-medical-fill"></i> 
-                                        <h4> GRADE-7 </h4> 
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col"> 
-                        <a href="grade8.php ?id_resident=<?= $userdetails['id_resident'];?>">
-                            <div class="zoom1">
-                                <div class="card"> 
-                                    <div class="card-body text-center"> 
-                                        <i class="bi bi-person-vcard-fill"></i>
-                                        <h4> GRADE-8 </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="col"> 
-                        <a href="grade9.php ?id_resident=<?= $userdetails['id_resident'];?>">
-                            <div class="zoom1">
-                                <div class="card"> 
-                                    <div class="card-body text-center"> 
-                                        <i class="bi bi-briefcase-fill"></i>
-                                        <h4> GRADE-9 </h4>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <br>
-                <div class="row card-spacing"> 
-                    <div class="col">
-                        <a href="grade10.php ?id_resident=<?= $userdetails['id_resident'];?>"> 
-                        <div class="zoom1">    
-                            <div class="card"> 
-                                <div class="card-body text-center"> 
-                                <i class="bi bi-house-check-fill"></i>
-                                    <h4> GRADE-10 </h4>
-                                </div>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-
-                    <div class="col">
-                        <a href="grade11.php ?id_resident=<?= $userdetails['id_resident'];?>"> 
-                        <div class="zoom1">    
-                            <div class="card"> 
-                                <div class="card-body text-center">
-                                <i class="bi bi-shield-lock-fill"></i> 
-                                    <h4> GRADE-11 </h4>
-                                </div>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-
-                    <div class="col">
-                        <a href="grade12.php ?id_resident=<?= $userdetails['id_resident'];?>"> 
-                        <div class="zoom1">    
-                            <div class="card"> 
-                                <div class="card-body text-center">
-                                <i class="bi bi-people-fill"></i> 
-                                    <h4> GRADE-12 </h4>
-                                </div>
-                            </div>
-                        </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <br>
-        <br>
-        <br>
-        <script>
-            $(document).ready(function(){
-            $('[data-toggle="tooltip"]').tooltip();   
-            });
-        </script>
-
-        <script>
-            $(document).ready(function(){
-            // Add smooth scrolling to all links
-            $("a").on('click', function(event) {
-
-                // Make sure this.hash has a value before overriding default behavior
-                if (this.hash !== "") {
-                // Prevent default anchor click behavior
-                event.preventDefault();
-
-                // Store hash
-                var hash = this.hash;
-
-                // Using jQuery's animate() method to add smooth page scroll
-                // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
-                $('html, body').animate({
-                    scrollTop: $(hash).offset().top
-                }, 800, function(){
-
-                    // Add hash (#) to URL when done scrolling (default click behavior)
-                    window.location.hash = hash;
-                });
-                } // End if
-            });
-            });
-        </script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
-    </body>
+</body>
 </html>

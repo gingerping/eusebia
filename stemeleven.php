@@ -5,6 +5,7 @@
    require('classes/resident.class.php');
    $userdetails = $residenteusebia->get_userdata();
    $residenteusebia->validate_admin();
+   $eusebia->delete_eleven();
    $view = $residenteusebia->view_eleven_stem();
    $resident = $residenteusebia->get_single_eleven($id_resident);
    

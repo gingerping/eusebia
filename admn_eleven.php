@@ -56,22 +56,22 @@ $current_order = isset($_GET['order']) ? $_GET['order'] : 'ASC';
     <div class="row">
         <?php 
         $course_cards = [
-            ['label' => 'STEM',    'count' => $stem_count, 'color' => 'primary', 'icon' => 'microscope', 'link' => 'stemeleven.php?strand=stem'],
-            ['label' => 'ABM',     'count' => $abm_count,  'color' => 'success', 'icon' => 'calculator', 'link' => 'abmeleven.php?strand=abm'],
-            ['label' => 'GAS',     'count' => $gas_count,  'color' => 'warning', 'icon' => 'book',       'link' => 'gaseleven.php?strand=gas'],
-            ['label' => 'TVL-ICT', 'count' => $ict_count,  'color' => 'info',    'icon' => 'laptop-code','link' => 'icteleven.php?strand=ict'],
-            ['label' => 'TVL-HE',  'count' => $he_count,   'color' => 'danger',  'icon' => 'utensils',   'link' => 'heeleven.php?strand=he']
+            ['label' => 'STEM',    'count' => $stem_count, 'hex' => '#0b2b5c', 'icon' => 'microscope', 'link' => 'stemeleven.php?strand=stem'],
+            ['label' => 'ABM',     'count' => $abm_count,  'hex' => '#0f3b7a', 'icon' => 'calculator', 'link' => 'abmeleven.php?strand=abm'],
+            ['label' => 'GAS',     'count' => $gas_count,  'hex' => '#1e5a88', 'icon' => 'book',       'link' => 'gaseleven.php?strand=gas'],
+            ['label' => 'TVL-ICT', 'count' => $ict_count,  'hex' => '#2a6f9c', 'icon' => 'laptop-code','link' => 'icteleven.php?strand=ict'],
+            ['label' => 'TVL-HE',  'count' => $he_count,   'hex' => '#4a8db5', 'icon' => 'utensils',   'link' => 'heeleven.php?strand=he']
         ];
 
         foreach ($course_cards as $card): 
         ?>
         <div class="col-xl col-md-6 mb-4">
             <a href="<?= $card['link'] ?>" class="text-decoration-none">
-                <div class="card border-left-<?= $card['color'] ?> shadow h-100 py-2">
+                <div class="card shadow h-100 py-2" style="border-left: 4px solid <?= $card['hex'] ?>;">
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-<?= $card['color'] ?> text-uppercase mb-1">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1" style="color: <?= $card['hex'] ?>;">
                                     <?= $card['label'] ?>
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">
@@ -79,7 +79,7 @@ $current_order = isset($_GET['order']) ? $_GET['order'] : 'ASC';
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-<?= $card['icon'] ?> fa-2x text-gray-300"></i>
+                                <i class="fas fa-<?= $card['icon'] ?> fa-2x" style="color: #c5d5e8;"></i>
                             </div>
                         </div>
                     </div>
@@ -109,13 +109,13 @@ $current_order = isset($_GET['order']) ? $_GET['order'] : 'ASC';
 
 <form method="GET" action="admn_eleven.php" class="d-inline ml-3">
             <span class="small font-weight-bold text-gray-600">Sort:</span>
-            <select name="sort" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: auto; border: none; background: transparent; font-weight: bold; color: #4e73df;">
+            <select name="sort" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: auto; border: none; background: transparent; font-weight: bold; color: #0b2b5c;">
                 <option value="lname" <?= $current_sort == 'lname' ? 'selected' : '' ?>>Name</option>
                 <option value="age" <?= $current_sort == 'age' ? 'selected' : '' ?>>Age</option>
                 <option value="course" <?= $current_sort == 'course' ? 'selected' : '' ?>>Strand</option>
             </select>
             
-            <select name="order" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: auto; border: none; background: transparent; font-weight: bold; color: #4e73df;">
+            <select name="order" class="custom-select custom-select-sm" onchange="this.form.submit()" style="width: auto; border: none; background: transparent; font-weight: bold; color: #0b2b5c;">
                 <option value="ASC" <?= $current_order == 'ASC' ? 'selected' : '' ?>>↑</option>
                 <option value="DESC" <?= $current_order == 'DESC' ? 'selected' : '' ?>>↓</option>
             </select>
@@ -136,4 +136,4 @@ $current_order = isset($_GET['order']) ? $_GET['order'] : 'ASC';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-modal/2.2.6/js/bootstrap-modalmanager.min.js" integrity="sha512-/HL24m2nmyI2+ccX+dSHphAHqLw60Oj5sK8jf59VWtFWZi9vx7jzoxbZmcBeeTeCUc7z1mTs3LfyXGuBU32t+w==" crossorigin="anonymous"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
 <link href="../BarangaySystem/customcss/regiformstyle.css" rel="stylesheet" type="text/css">
-<link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"> 
+<link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
