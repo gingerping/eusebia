@@ -351,7 +351,25 @@ public function get_userdata() {
             $lsa, $lysc, $school_id, $id_resident
         ]);
 
-        echo "<script type='text/javascript'>alert('Grade 7 Enrollment Submitted Successfully'); window.location.href='grade7.php';</script>";
+echo "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css'>
+<script>
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+    script.onload = function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Submitted!',
+            text: 'Grade 7 Enrollment Submitted Successfully',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#3085d6',
+            timer: 3000,
+            timerProgressBar: true
+        }).then(function() {
+            window.location.href = 'grade7.php';
+        });
+    };
+    document.head.appendChild(script);
+</script>";
         exit(); 
     }
 }
@@ -489,7 +507,25 @@ public function create_eight() {
             $lsa, $lysc, $school_id, $id_resident
         ]);
 
-        echo "<script type='text/javascript'>alert('Grade 8 Enrollment Submitted Successfully'); window.location.href='grade8.php';</script>";
+        echo "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css'>
+<script>
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+    script.onload = function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Submitted!',
+            text: 'Grade 8 Enrollment Submitted Successfully',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#3085d6',
+            timer: 3000,
+            timerProgressBar: true
+        }).then(function() {
+            window.location.href = 'grade8.php';
+        });
+    };
+    document.head.appendChild(script);
+</script>";
         exit(); 
     }
 }
@@ -625,7 +661,25 @@ public function create_nine() {
                 $lsa, $lysc, $school_id, $id_resident
             ]);
 
-            echo "<script type='text/javascript'>alert('Grade 9 Enrollment Submitted Successfully'); window.location.href='grade9.php';</script>";
+            echo "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css'>
+<script>
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+    script.onload = function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Submitted!',
+            text: 'Grade 9 Enrollment Submitted Successfully',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#3085d6',
+            timer: 3000,
+            timerProgressBar: true
+        }).then(function() {
+            window.location.href = 'grade9.php';
+        });
+    };
+    document.head.appendChild(script);
+</script>";
             exit(); 
         }
     }
@@ -759,7 +813,25 @@ public function create_nine() {
                 $lsa, $lysc, $school_id, $id_resident
             ]);
 
-            echo "<script type='text/javascript'>alert('Grade 10 Enrollment Submitted Successfully'); window.location.href='grade10.php';</script>";
+            echo "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css'>
+<script>
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+    script.onload = function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Submitted!',
+            text: 'Grade 10 Enrollment Submitted Successfully',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#3085d6',
+            timer: 3000,
+            timerProgressBar: true
+        }).then(function() {
+            window.location.href = 'grade10.php';
+        });
+    };
+    document.head.appendChild(script);
+</script>";
             exit(); 
         }
     }
@@ -893,7 +965,25 @@ public function create_nine() {
                 $lsa, $lysc, $school_id, $id_resident
             ]);
 
-            echo "<script type='text/javascript'>alert('Grade 11 Enrollment Submitted Successfully'); window.location.href='grade11.php';</script>";
+            echo "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css'>
+<script>
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+    script.onload = function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Submitted!',
+            text: 'Grade 11 Enrollment Submitted Successfully',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#3085d6',
+            timer: 3000,
+            timerProgressBar: true
+        }).then(function() {
+            window.location.href = 'grade11.php';
+        });
+    };
+    document.head.appendChild(script);
+</script>";
             exit(); 
         }
     }
@@ -1026,7 +1116,25 @@ public function create_nine() {
                 $lsa, $lysc, $school_id, $id_resident
             ]);
 
-            echo "<script type='text/javascript'>alert('Grade 12 Enrollment Submitted Successfully'); window.location.href='grade12.php';</script>";
+            echo "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css'>
+<script>
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
+    script.onload = function() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Submitted!',
+            text: 'Grade 12 Enrollment Submitted Successfully',
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#3085d6',
+            timer: 3000,
+            timerProgressBar: true
+        }).then(function() {
+            window.location.href = 'grade12.php';
+        });
+    };
+    document.head.appendChild(script);
+</script>";
             exit(); 
         }
     }

@@ -4,24 +4,15 @@
   <title>EPAMNHS | Vision, Mission & Core Values</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Google Fonts & Icons -->
+
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-  
-  <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  
-  <!-- AOS Library (optional scroll animations) -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Inter', sans-serif;
@@ -30,104 +21,113 @@
       scroll-behavior: smooth;
     }
 
-    /* ========== NAVBAR (modern gradient, same as portal) ========== */
+    /* ── NAVBAR ── */
     .navbar-custom {
       background: linear-gradient(135deg, #0b2b5c 0%, #0f3b7a 100%);
-      backdrop-filter: blur(8px);
-      padding: 0.9rem 2rem;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      padding: 0;
+      box-shadow: 0 4px 20px rgba(0,0,0,.12);
       position: sticky;
       top: 0;
       z-index: 1000;
     }
+
+    .navbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: .85rem 1.5rem;
+      gap: .75rem;
+    }
+
     .navbar-brand {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
-      font-size: 1.5rem;
-      letter-spacing: -0.3px;
+      font-size: clamp(1rem, 3.5vw, 1.4rem);
       color: white !important;
-      transition: transform 0.2s;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      flex-shrink: 1;
+      min-width: 0;
     }
-    .navbar-brand:hover {
-      transform: scale(1.02);
+
+    .navbar-brand span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
+
+    /* Desktop nav buttons */
     .nav-buttons {
       display: flex;
-      gap: 12px;
+      gap: 10px;
+      flex-shrink: 0;
     }
+
     .btn-nav {
       border-radius: 40px;
-      padding: 8px 22px;
+      padding: 7px 18px;
       font-weight: 500;
-      font-size: 0.9rem;
-      transition: all 0.2s;
+      font-size: .875rem;
+      transition: all .2s;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 7px;
+      white-space: nowrap;
     }
+
     .btn-login {
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.25);
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.28);
       color: white;
     }
-    .btn-login:hover {
-      background: rgba(255,255,255,0.25);
-      color: white;
-    }
+    .btn-login:hover { background: rgba(255,255,255,.25); color: white; }
+
     .btn-register {
-      background: #ffd700cc;
+      background: rgba(255,215,0,.8);
       border: 1px solid #ffd700;
       color: #0b2b5c;
+      font-weight: 600;
     }
-    .btn-register:hover {
-      background: #ffd700;
-      color: #0b2b5c;
-      transform: translateY(-2px);
-    }
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
-    .hamburger span {
-      width: 24px;
-      height: 2px;
-      background: white;
-      border-radius: 2px;
-    }
-    .mobile-menu {
-      display: none;
-      flex-direction: column;
-      background: #0b2b5c;
-      padding: 1rem 1.5rem;
-      gap: 12px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    .mobile-menu .btn-nav {
-      width: 100%;
-      justify-content: center;
-    }
+    .btn-register:hover { background: #ffd700; transform: translateY(-2px); color: #0b2b5c; }
+
+    /* ── MOBILE NAV: always-visible compact buttons ── */
     @media (max-width: 768px) {
-      .nav-buttons { display: none; }
-      .hamburger { display: flex; }
-      .navbar-custom { padding: 0.9rem 1.2rem; }
+      .navbar-inner { padding: .7rem 1rem; }
+
+      /* Keep buttons visible but shrink them */
+      .nav-buttons {
+        display: flex !important;
+        gap: 7px;
+      }
+
+      .btn-nav {
+        padding: 6px 13px;
+        font-size: .78rem;
+        gap: 5px;
+      }
+
+      /* Hide text on very small screens, show only icon */
+      @media (max-width: 400px) {
+        .btn-nav .btn-label { display: none; }
+        .btn-nav { padding: 8px 11px; border-radius: 50%; }
+      }
     }
-    
-    /* ========== HERO SECTION with background image ========== */
+
+    /* ── HERO ── */
     .hero {
       position: relative;
       width: 100%;
-      height: 380px;
+      height: 360px;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
     }
+
     .hero-bg {
       position: absolute;
       inset: 0;
@@ -136,290 +136,279 @@
       object-fit: cover;
       z-index: 0;
     }
+
     .hero-overlay {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(11,43,92,0.3), rgba(15,59,122,0.45));
+      background: linear-gradient(135deg, rgba(11,43,92,.35), rgba(15,59,122,.5));
       z-index: 1;
     }
+
     .hero-content {
       position: relative;
       z-index: 2;
       padding: 2rem 1.5rem;
     }
+
     .seal-ring {
-      width: 100px;
-      height: 100px;
-      margin: 0 auto 1.2rem;
-      background: rgba(255,255,255,0.1);
+      width: 90px;
+      height: 90px;
+      margin: 0 auto 1.1rem;
+      background: rgba(255,255,255,.1);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      border: 2px solid rgba(255,215,0,0.5);
+      border: 2px solid rgba(255,215,0,.5);
     }
+
     .seal-ring img {
-  filter: brightness(1.05) contrast(1.1);
-  background: rgba(255,255,255,0.9);
-  border-radius: 50%;
-  padding: 8px;
-}
+      width: 64px;
+      height: 64px;
+      object-fit: contain;
+      filter: brightness(1.05) contrast(1.1);
+      background: rgba(255,255,255,.9);
+      border-radius: 50%;
+      padding: 6px;
+    }
+
     .school-name {
       font-family: 'Playfair Display', serif;
-      font-size: 2.2rem;
+      font-size: clamp(1.3rem, 4.5vw, 2.1rem);
       font-weight: 700;
       color: white;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      text-shadow: 0 2px 8px rgba(0,0,0,.3);
+      max-width: 640px;
+      margin: 0 auto;
     }
+
     .school-sub {
-      color: rgba(255,215,0,0.85);
-      font-size: 0.9rem;
+      color: rgba(255,215,0,.85);
+      font-size: .85rem;
       letter-spacing: 1px;
+      margin-top: .35rem;
     }
+
     .divider-gold {
-      width: 70px;
+      width: 60px;
       height: 2px;
       background: linear-gradient(90deg, transparent, #ffd700, transparent);
-      margin: 1.2rem auto;
+      margin: 1rem auto;
     }
+
     .hero-caption {
-      color: rgba(255,255,255,0.7);
-      font-size: 0.85rem;
+      color: rgba(255,255,255,.7);
+      font-size: .82rem;
     }
-    .photo-hint {
-      position: absolute;
-      bottom: 12px;
-      right: 16px;
-      z-index: 3;
-      background: rgba(0,0,0,0.5);
-      color: rgba(255,255,255,0.8);
-      font-size: 0.7rem;
-      padding: 4px 10px;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-    .photo-hint:hover {
-      background: rgba(0,0,0,0.8);
-    }
+
     @media (max-width: 600px) {
-      .hero { height: 320px; }
-      .school-name { font-size: 1.6rem; }
-      .seal-ring { width: 80px; height: 80px; }
-      .seal-ring img { width: 55px; }
+      .hero { height: 300px; }
+      .seal-ring { width: 72px; height: 72px; }
+      .seal-ring img { width: 52px; height: 52px; }
     }
-    
-    /* ========== CARDS SECTION ========== */
+
+    /* ── CONTENT / CARDS ── */
     .content {
       max-width: 900px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
+      padding: 2rem 1.2rem 4rem;
     }
-    .card-section {
-      margin-top: -2rem;
-      position: relative;
-    }
+
+    .card-section { margin-top: -1.8rem; }
+
     .mv-card {
       background: white;
-      border-radius: 28px;
-      box-shadow: 0 18px 35px -12px rgba(0,0,0,0.1);
-      margin-bottom: 1.8rem;
-      transition: all 0.3s ease;
+      border-radius: 24px;
+      box-shadow: 0 14px 30px -10px rgba(0,0,0,.09);
+      margin-bottom: 1.6rem;
+      transition: transform .3s, box-shadow .3s;
       overflow: hidden;
     }
+
     .mv-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 25px 40px -16px rgba(0,0,0,0.15);
+      transform: translateY(-5px);
+      box-shadow: 0 22px 38px -14px rgba(0,0,0,.13);
     }
+
     .card-header {
-      padding: 1.5rem 1.8rem 0.8rem;
+      padding: 1.4rem 1.6rem .8rem;
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: .9rem;
       border-bottom: 1px solid #eef2f8;
+      background: none;
     }
+
     .icon-badge {
-      width: 56px;
-      height: 56px;
-      border-radius: 20px;
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
       background: #eef2ff;
+      flex-shrink: 0;
     }
-    .icon-badge svg {
-      width: 28px;
-      height: 28px;
-    }
+
+    .icon-badge svg { width: 26px; height: 26px; }
+
     .card-label {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 700;
       font-family: 'Playfair Display', serif;
       color: #0b2b5c;
       line-height: 1.2;
+      margin: 0;
     }
+
     .card-tagline {
-      font-size: 0.75rem;
+      font-size: .72rem;
       text-transform: uppercase;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.4px;
       color: #5a687c;
+      margin: 0;
     }
+
     .card-body {
-      padding: 1.5rem 1.8rem 2rem;
-      font-size: 1rem;
-      line-height: 1.6;
+      padding: 1.4rem 1.6rem 1.8rem;
+      font-size: .97rem;
+      line-height: 1.7;
       color: #2c3e4e;
     }
-    .card-body p {
-      margin-bottom: 0.8rem;
-    }
+
+    .card-body p { margin-bottom: .75rem; }
+    .card-body p:last-child { margin-bottom: 0; }
+
     /* Core values grid */
     .values-grid {
-    display: grid;
-    /* Reduced minmax to 140px so the 4 pillars can sit 2x2 on smaller cards */
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 12px;
-    margin-top: 1rem;
-}
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 10px;
+      margin-top: .9rem;
+    }
 
-.value-pill {
-    background: #f8fafc;
-    border-radius: 12px; /* Changed from 60px to 12px for a more 'modern app' look */
-    padding: 0.7rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border: 1px solid #e2e8f0;
-    transition: all 0.2s ease;
-}
+    .value-pill {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: .65rem .95rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid #e2e8f0;
+      transition: all .2s;
+    }
 
-.value-pill:hover {
-    background: #ffffff;
-    border-color: #cbd5e1;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
+    .value-pill:hover {
+      background: #fff;
+      border-color: #cbd5e1;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,.05);
+    }
 
-.value-dot {
-    width: 10px; /* Slightly smaller dot for a cleaner look */
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0; /* Prevents dot from squishing if text is long */
-}
+    .value-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
 
-/* Added soft glows to the dots to match your icon gradient style */
-.dot-blue { background: #1e88e5; box-shadow: 0 0 8px rgba(30, 136, 229, 0.3); }
-.dot-green { background: #43a047; box-shadow: 0 0 8px rgba(67, 160, 71, 0.3); }
-.dot-purple { background: #8e44ad; box-shadow: 0 0 8px rgba(142, 68, 173, 0.3); }
-.dot-amber { background: #fb8c00; box-shadow: 0 0 8px rgba(251, 140, 0, 0.3); }
+    .dot-blue   { background: #1e88e5; box-shadow: 0 0 7px rgba(30,136,229,.35); }
+    .dot-green  { background: #43a047; box-shadow: 0 0 7px rgba(67,160,71,.35); }
+    .dot-purple { background: #8e44ad; box-shadow: 0 0 7px rgba(142,68,173,.35); }
+    .dot-amber  { background: #fb8c00; box-shadow: 0 0 7px rgba(251,140,0,.35); }
 
-.value-text {
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 0.9rem;
-    color: #334155;
-    letter-spacing: -0.01em;
-}
-    
-    /* ========== BACK TO TOP BUTTON ========== */
+    .value-text {
+      font-weight: 500;
+      font-size: .88rem;
+      color: #334155;
+    }
+
+    @media (max-width: 500px) {
+      .card-header { padding: 1.1rem 1.1rem .6rem; }
+      .card-body   { padding: 1.1rem 1.1rem 1.4rem; }
+      .card-label  { font-size: 1.25rem; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ── BACK TO TOP ── */
     .top-link {
       position: fixed;
-      bottom: 2rem;
-      right: 2rem;
+      bottom: 1.8rem;
+      right: 1.5rem;
       background: #0b2b5c;
-      width: 48px;
-      height: 48px;
-      border-radius: 30px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      transition: all 0.3s;
+      box-shadow: 0 4px 14px rgba(0,0,0,.2);
+      transition: all .3s;
       z-index: 99;
       text-decoration: none;
       opacity: 0;
       visibility: hidden;
     }
-    .top-link.show {
-      opacity: 1;
-      visibility: visible;
-    }
-    .top-link:hover {
-      background: #1f5a9e;
-      transform: translateY(-5px);
-      color: white;
-    }
-    
-    /* ========== FOOTER ========== */
+
+    .top-link.show { opacity: 1; visibility: visible; }
+    .top-link:hover { background: #1f5a9e; transform: translateY(-4px); color: white; }
+
+    /* ── FOOTER ── */
     .footer-custom {
       background: #0b1f33;
       color: #cddcec;
-      padding: 2rem 1rem;
+      padding: 1.8rem 1rem;
       text-align: center;
-      font-size: 0.85rem;
-      border-top-left-radius: 32px;
-      border-top-right-radius: 32px;
-    }
-    
-    @media (max-width: 600px) {
-      .card-header { padding: 1.2rem 1.2rem 0.5rem; }
-      .card-body { padding: 1.2rem; }
-      .card-label { font-size: 1.3rem; }
-      .values-grid { grid-template-columns: 1fr; }
+      font-size: .84rem;
+      border-top-left-radius: 28px;
+      border-top-right-radius: 28px;
     }
   </style>
 </head>
 <body>
 
-<!-- ========== MODERN NAVBAR (public version) ========== -->
-<nav class="navbar navbar-custom">
-  <div class="container-fluid d-flex justify-content-between align-items-center">
+<!-- ── NAVBAR ── -->
+<nav class="navbar-custom">
+  <div class="navbar-inner">
     <a class="navbar-brand" href="#">
-      <i class="bi bi-mortarboard-fill me-2"></i> EPAMNHS Portal
+      <i class="bi bi-mortarboard-fill" style="flex-shrink:0;"></i>
+      <span>EPAMNHS Portal</span>
     </a>
-    
-    <!-- Desktop buttons -->
+
+    <!-- Buttons always visible: desktop full, mobile compact -->
     <div class="nav-buttons">
       <a href="login.php" class="btn-nav btn-login">
-        <i class="fas fa-sign-in-alt"></i> Log in
+        <i class="fas fa-sign-in-alt"></i>
+        <span class="btn-label">Log in</span>
       </a>
       <a href="resident_registration.php" class="btn-nav btn-register">
-        <i class="fas fa-user-plus"></i> Register
+        <i class="fas fa-user-plus"></i>
+        <span class="btn-label">Register</span>
       </a>
     </div>
-    
-    <!-- Mobile hamburger -->
-    <button class="hamburger" id="hamburgerBtn">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-  <!-- Mobile menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <a href="login.php" class="btn-nav btn-login"><i class="fas fa-sign-in-alt"></i> Log in</a>
-    <a href="resident_registration.php" class="btn-nav btn-register"><i class="fas fa-user-plus"></i> Register</a>
   </div>
 </nav>
 
-<!-- ========== HERO BANNER with uploadable background ========== -->
+<!-- ── HERO ── -->
 <header class="hero">
   <img class="hero-bg" id="heroBg" src="icons/eusebia.jpg" alt="School campus">
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="seal-ring">
-      <img src="icons/eusebia.png" alt="School Seal">
+      <img src="icons/Documents/eusebia.png" alt="School Seal">
     </div>
-    <h1 class="school-name">Eusebia Paz Arroyo MemorialNational High School</h1>
+    <h1 class="school-name">Eusebia Paz Arroyo Memorial National High School</h1>
     <p class="school-sub">Department of Education</p>
     <div class="divider-gold"></div>
     <p class="hero-caption">Mission · Vision · Core Values</p>
   </div>
 </header>
 
-<!-- ========== CONTENT: VISION, MISSION, CORE VALUES ========== -->
+<!-- ── CONTENT ── -->
 <main class="content">
   <div class="card-section" data-aos="fade-up">
-    
+
     <!-- VISION -->
     <article class="mv-card">
       <div class="card-header">
@@ -430,8 +419,8 @@
           </svg>
         </div>
         <div>
-          <div class="card-label">Vision</div>
-          <div class="card-tagline">What we aspire to become</div>
+          <h2 class="card-label">Vision</h2>
+          <p class="card-tagline">What we aspire to become</p>
         </div>
       </div>
       <div class="card-body">
@@ -439,9 +428,9 @@
         <p>As a learner-centered public institution, the Department of Education continuously improves itself to better serve its stakeholders.</p>
       </div>
     </article>
-    
+
     <!-- MISSION -->
-    <article class="mv-card">
+    <article class="mv-card" data-aos="fade-up" data-aos-delay="80">
       <div class="card-header">
         <div class="icon-badge">
           <svg viewBox="0 0 24 24" fill="none" stroke="#3b6d11" stroke-width="1.8">
@@ -451,47 +440,46 @@
           </svg>
         </div>
         <div>
-          <div class="card-label">Mission</div>
-          <div class="card-tagline">What we commit to do</div>
+          <h2 class="card-label">Mission</h2>
+          <p class="card-tagline">What we commit to do</p>
         </div>
       </div>
       <div class="card-body">
         <p>To protect and promote the right of every Filipino to quality, equitable, culture-based, and complete basic education where:</p>
         <p>* Students learn in a child-friendly, gender-sensitive, safe, and motivating environment.<br>
-        * Teachers facilitate learning and constantly nurture every learner.<br>
-        * Administrators and staff ensure an enabling and supportive environment for effective learning.<br>
-        * Family, community, and stakeholders actively engage and share responsibility for developing life-long learners.</p>
+           * Teachers facilitate learning and constantly nurture every learner.<br>
+           * Administrators and staff ensure an enabling and supportive environment for effective learning.<br>
+           * Family, community, and stakeholders actively engage and share responsibility for developing life-long learners.</p>
       </div>
     </article>
-    
+
     <!-- CORE VALUES -->
-    <article class="mv-card">
-  <div class="card-header">
-    <div class="icon-badge">
-      <!-- Changed to a 'Shield' icon for a more institutional feel -->
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-      </svg>
-    </div>
-    <div class="header-text">
-      <h3 class="card-label">Core Values</h3>
-      <p class="card-tagline">Principles we live by</p>
-    </div>
-  </div>
-  <div class="card-body">
-    <div class="values-grid">
-      <div class="value-pill"><span class="value-dot dot-blue"></span>Maka-Diyos</div>
-      <div class="value-pill"><span class="value-dot dot-green"></span>Maka-tao</div>
-      <div class="value-pill"><span class="value-dot dot-purple"></span>Makakalikasan</div>
-      <div class="value-pill"><span class="value-dot dot-amber"></span>Makabansa</div>
-    </div>
-  </div>
-</article>
-    
+    <article class="mv-card" data-aos="fade-up" data-aos-delay="160">
+      <div class="card-header">
+        <div class="icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#534ab7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+        </div>
+        <div>
+          <h2 class="card-label">Core Values</h2>
+          <p class="card-tagline">Principles we live by</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="values-grid">
+          <div class="value-pill"><span class="value-dot dot-blue"></span><span class="value-text">Maka-Diyos</span></div>
+          <div class="value-pill"><span class="value-dot dot-green"></span><span class="value-text">Maka-tao</span></div>
+          <div class="value-pill"><span class="value-dot dot-purple"></span><span class="value-text">Makakalikasan</span></div>
+          <div class="value-pill"><span class="value-dot dot-amber"></span><span class="value-text">Makabansa</span></div>
+        </div>
+      </div>
+    </article>
+
   </div>
 </main>
 
-<!-- Back to Top Button -->
+<!-- Back to Top -->
 <a href="#" class="top-link" id="backToTopBtn">
   <i class="fas fa-arrow-up"></i>
 </a>
@@ -499,55 +487,25 @@
 <!-- Footer -->
 <footer class="footer-custom">
   <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <i class="fas fa-school me-2"></i> Eusebia Paz Arroyo Memorial National High School 
-        <br><small> <?= date('Y') ?> EPAMNHS. All rights reserved.</small>
-      </div>
-    </div>
+    <i class="fas fa-school me-2"></i> Eusebia Paz Arroyo Memorial National High School
+    <br><small><?= date('Y') ?> EPAMNHS. All rights reserved.</small>
   </div>
 </footer>
 
-<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
   AOS.init({ duration: 800, once: true, offset: 40 });
-  
-  // Mobile menu toggle
-  const hamburger = document.getElementById('hamburgerBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  hamburger.addEventListener('click', () => {
-    mobileMenu.classList.toggle('show');
-    if (mobileMenu.style.display === 'flex') mobileMenu.style.display = 'none';
-    else mobileMenu.style.display = 'flex';
-  });
-  // Initially hidden
-  mobileMenu.style.display = 'none';
-  
-  // Back to top button
+
+  // Back to top
   const backBtn = document.getElementById('backToTopBtn');
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) backBtn.classList.add('show');
-    else backBtn.classList.remove('show');
+    backBtn.classList.toggle('show', window.scrollY > 300);
   });
-  backBtn.addEventListener('click', (e) => {
+  backBtn.addEventListener('click', e => {
     e.preventDefault();
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-  
-  // Background image upload
-  const photoInput = document.getElementById('photoUpload');
-  const heroImg = document.getElementById('heroBg');
-  document.querySelector('.photo-hint').addEventListener('click', () => photoInput.click());
-  photoInput.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => { heroImg.src = event.target.result; };
-      reader.readAsDataURL(file);
-    }
   });
 </script>
 </body>
