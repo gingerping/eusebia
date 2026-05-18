@@ -351,7 +351,7 @@ public function get_userdata() {
             $lsa, $lysc, $school_id, $id_resident
         ]);
 
-echo "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css'>
+        echo "<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css'>
 <script>
     var script = document.createElement('script');
     script.src = 'https://cdn.jsdelivr.net/npm/sweetalert2@11';
@@ -395,19 +395,36 @@ public function get_single_seven($id_resident){
 
 public function view_seven(){ // Changed name to match the table
     $connection = $this->openConn();
-    $stmt = $connection->prepare("SELECT * from tbl_seven");
+    $stmt = $connection->prepare("SELECT * from tbl_seven WHERE is_archived = 0 OR is_archived IS NULL");
     $stmt->execute();
     return $stmt->fetchAll();
 }
 
 public function delete_seven(){
     if(isset($_POST['delete_seven'])) {
-        $id_seven = $_POST['id_seven']; // Fixed: ensure this matches your hidden input name
+        $id_seven = $_POST['id_seven'];
         $connection = $this->openConn();
-        $stmt = $connection->prepare("DELETE FROM tbl_seven where id_seven = ?");
-        $stmt->execute([$id_seven]); // FIXED: changed from $id_bspermit to $id_seven
-
+        $stmt = $connection->prepare("UPDATE tbl_seven SET is_archived = 1, archived_at = NOW() WHERE id_seven = ?");
+        $stmt->execute([$id_seven]);
         header("Refresh:0");
+    }
+}
+
+public function view_archived_seven(){
+    $connection = $this->openConn();
+    $stmt = $connection->prepare("SELECT *, 'Grade 7' AS grade_label, id_seven AS record_id, 'seven' AS grade_table FROM tbl_seven WHERE is_archived = 1");
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+public function restore_seven(){
+    if(isset($_POST['restore_seven'])) {
+        $id_seven = $_POST['id_seven'];
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("UPDATE tbl_seven SET is_archived = 0, archived_at = NULL WHERE id_seven = ?");
+        $stmt->execute([$id_seven]);
+        header("Location: admn_archive.php");
+        exit();
     }
 }
 
@@ -549,7 +566,7 @@ public function get_single_eight($id_resident){
 
 public function view_eight(){ 
     $connection = $this->openConn();
-    $stmt = $connection->prepare("SELECT * FROM tbl_eight");
+    $stmt = $connection->prepare("SELECT * FROM tbl_eight WHERE is_archived = 0 OR is_archived IS NULL");
     $stmt->execute();
     return $stmt->fetchAll();
 }
@@ -558,10 +575,27 @@ public function delete_eight(){
     if(isset($_POST['delete_eight'])) {
         $id_eight = $_POST['id_eight']; 
         $connection = $this->openConn();
-        $stmt = $connection->prepare("DELETE FROM tbl_eight WHERE id_eight = ?");
+        $stmt = $connection->prepare("UPDATE tbl_eight SET is_archived = 1, archived_at = NOW() WHERE id_eight = ?");
         $stmt->execute([$id_eight]); 
-
         header("Refresh:0");
+    }
+}
+
+public function view_archived_eight(){
+    $connection = $this->openConn();
+    $stmt = $connection->prepare("SELECT *, 'Grade 8' AS grade_label, id_eight AS record_id, 'eight' AS grade_table FROM tbl_eight WHERE is_archived = 1");
+    $stmt->execute();
+    return $stmt->fetchAll();
+}
+
+public function restore_eight(){
+    if(isset($_POST['restore_eight'])) {
+        $id_eight = $_POST['id_eight'];
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("UPDATE tbl_eight SET is_archived = 0, archived_at = NULL WHERE id_eight = ?");
+        $stmt->execute([$id_eight]);
+        header("Location: admn_archive.php");
+        exit();
     }
 }
 
@@ -696,7 +730,7 @@ public function create_nine() {
 
     public function view_nine(){ 
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * FROM tbl_nine");
+        $stmt = $connection->prepare("SELECT * FROM tbl_nine WHERE is_archived = 0 OR is_archived IS NULL");
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -705,10 +739,27 @@ public function create_nine() {
         if(isset($_POST['delete_nine'])) {
             $id_nine = $_POST['id_nine']; 
             $connection = $this->openConn();
-            $stmt = $connection->prepare("DELETE FROM tbl_nine WHERE id_nine = ?");
+            $stmt = $connection->prepare("UPDATE tbl_nine SET is_archived = 1, archived_at = NOW() WHERE id_nine = ?");
             $stmt->execute([$id_nine]); 
-
             header("Refresh:0");
+            exit();
+        }
+    }
+
+    public function view_archived_nine(){
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("SELECT *, 'Grade 9' AS grade_label, id_nine AS record_id, 'nine' AS grade_table FROM tbl_nine WHERE is_archived = 1");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function restore_nine(){
+        if(isset($_POST['restore_nine'])) {
+            $id_nine = $_POST['id_nine'];
+            $connection = $this->openConn();
+            $stmt = $connection->prepare("UPDATE tbl_nine SET is_archived = 0, archived_at = NULL WHERE id_nine = ?");
+            $stmt->execute([$id_nine]);
+            header("Location: admn_archive.php");
             exit();
         }
     }
@@ -848,7 +899,7 @@ public function create_nine() {
 
     public function view_ten(){ 
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * FROM tbl_ten");
+        $stmt = $connection->prepare("SELECT * FROM tbl_ten WHERE is_archived = 0 OR is_archived IS NULL");
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -857,10 +908,27 @@ public function create_nine() {
         if(isset($_POST['delete_ten'])) {
             $id_ten = $_POST['id_ten']; 
             $connection = $this->openConn();
-            $stmt = $connection->prepare("DELETE FROM tbl_ten WHERE id_ten = ?");
+            $stmt = $connection->prepare("UPDATE tbl_ten SET is_archived = 1, archived_at = NOW() WHERE id_ten = ?");
             $stmt->execute([$id_ten]); 
-
             header("Refresh:0");
+            exit();
+        }
+    }
+
+    public function view_archived_ten(){
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("SELECT *, 'Grade 10' AS grade_label, id_ten AS record_id, 'ten' AS grade_table FROM tbl_ten WHERE is_archived = 1");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function restore_ten(){
+        if(isset($_POST['restore_ten'])) {
+            $id_ten = $_POST['id_ten'];
+            $connection = $this->openConn();
+            $stmt = $connection->prepare("UPDATE tbl_ten SET is_archived = 0, archived_at = NULL WHERE id_ten = ?");
+            $stmt->execute([$id_ten]);
+            header("Location: admn_archive.php");
             exit();
         }
     }
@@ -999,7 +1067,7 @@ public function create_nine() {
     }
     public function view_eleven(){ 
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * FROM tbl_eleven");
+        $stmt = $connection->prepare("SELECT * FROM tbl_eleven WHERE is_archived = 0 OR is_archived IS NULL");
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -1008,10 +1076,27 @@ public function create_nine() {
         if(isset($_POST['delete_eleven'])) {
             $id_eleven = $_POST['id_eleven']; 
             $connection = $this->openConn();
-            $stmt = $connection->prepare("DELETE FROM tbl_eleven WHERE id_eleven = ?");
+            $stmt = $connection->prepare("UPDATE tbl_eleven SET is_archived = 1, archived_at = NOW() WHERE id_eleven = ?");
             $stmt->execute([$id_eleven]); 
-
             header("Refresh:0");
+            exit();
+        }
+    }
+
+    public function view_archived_eleven(){
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("SELECT *, 'Grade 11' AS grade_label, id_eleven AS record_id, 'eleven' AS grade_table FROM tbl_eleven WHERE is_archived = 1");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function restore_eleven(){
+        if(isset($_POST['restore_eleven'])) {
+            $id_eleven = $_POST['id_eleven'];
+            $connection = $this->openConn();
+            $stmt = $connection->prepare("UPDATE tbl_eleven SET is_archived = 0, archived_at = NULL WHERE id_eleven = ?");
+            $stmt->execute([$id_eleven]);
+            header("Location: admn_archive.php");
             exit();
         }
     }
@@ -1151,7 +1236,7 @@ public function create_nine() {
 
     public function view_twelve(){ 
         $connection = $this->openConn();
-        $stmt = $connection->prepare("SELECT * FROM tbl_twelve");
+        $stmt = $connection->prepare("SELECT * FROM tbl_twelve WHERE is_archived = 0 OR is_archived IS NULL");
         $stmt->execute();
         return $stmt->fetchAll();
     }
@@ -1160,10 +1245,27 @@ public function create_nine() {
         if(isset($_POST['delete_twelve'])) {
             $id_twelve = $_POST['id_twelve']; 
             $connection = $this->openConn();
-            $stmt = $connection->prepare("DELETE FROM tbl_twelve WHERE id_twelve = ?");
+            $stmt = $connection->prepare("UPDATE tbl_twelve SET is_archived = 1, archived_at = NOW() WHERE id_twelve = ?");
             $stmt->execute([$id_twelve]); 
-
             header("Refresh:0");
+            exit();
+        }
+    }
+
+    public function view_archived_twelve(){
+        $connection = $this->openConn();
+        $stmt = $connection->prepare("SELECT *, 'Grade 12' AS grade_label, id_twelve AS record_id, 'twelve' AS grade_table FROM tbl_twelve WHERE is_archived = 1");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function restore_twelve(){
+        if(isset($_POST['restore_twelve'])) {
+            $id_twelve = $_POST['id_twelve'];
+            $connection = $this->openConn();
+            $stmt = $connection->prepare("UPDATE tbl_twelve SET is_archived = 0, archived_at = NULL WHERE id_twelve = ?");
+            $stmt->execute([$id_twelve]);
+            header("Location: admn_archive.php");
             exit();
         }
     }

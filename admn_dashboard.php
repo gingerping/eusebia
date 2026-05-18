@@ -1,8 +1,7 @@
 <?php
     error_reporting(E_ALL ^ E_WARNING);
-    include('classes/staff.class.php');
     include('classes/resident.class.php');
-
+ $userdetails = $eusebia->get_userdata();
     $residenteusebia = new ResidentClass();
 
     
@@ -319,6 +318,3 @@ new Chart(ctxStrand, {
 <script src="https://kit.fontawesome.com/67a9b7069e.js" crossorigin="anonymous"></script>
 <script src="../BarangaySystem/bootstrap/js/bootstrap.bundle.js" type="text/javascript"> </script>
                 
-<?php 
-    include('dashboard_sidebar_end.php');
-?>

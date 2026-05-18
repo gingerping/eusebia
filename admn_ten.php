@@ -79,4 +79,3 @@
 <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no">
 <link href="../BarangaySystem/customcss/regiformstyle.css" rel="stylesheet" type="text/css">
 <link href="../BarangaySystem/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"> 
-<script src="https://kit
